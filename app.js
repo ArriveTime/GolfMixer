@@ -161,28 +161,28 @@ function joinMixer(idx) {
   }
 }
 
-// 4. Live News & Tournament Feeds with Destination Links
+// 4. Live News & Tournament Feeds with Verified Destination Links
 function renderNews() {
   const newsItems = [
     { 
       title: "Current PGA & LPGA Leaderboards & Champions", 
       tag: "Tournaments", 
       date: "Live Feed",
-      link: "https://www.pgatour.com/leaderboard",
+      link: "https://www.pgatour.com",
       description: "Real-time scores, tournament standings, and PGA/LPGA champion updates."
     },
     { 
       title: "Upcoming Local Charity Scrambles & Golf Outings", 
       tag: "Charity Events", 
       date: "This Month",
-      link: "https://golfstatus.com/events",
+      link: "https://golfstatus.com",
       description: "Find local charity scrambles, fundraising outings, and clubhouse benefit matches."
     },
     { 
       title: "Pro Golf Swing Tips & Clubhouse Private Lessons", 
       tag: "Golf Lessons", 
       date: "Weekly Feature",
-      link: "https://www.pga.com/coaching",
+      link: "https://www.pga.com",
       description: "Connect with certified PGA pros for local lessons, swing analysis, and practice tips."
     }
   ];
