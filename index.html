@@ -184,32 +184,64 @@
 
   </main>
 
-  <!-- Password-Protected Admin Modal -->
-  <div id="admin-modal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50">
-    <div class="bg-white p-8 rounded-2xl max-w-md w-full space-y-6 shadow-2xl border-4 border-golf-green">
-      <div class="flex justify-between items-center">
-        <h3 class="text-2xl font-bold text-golf-green">Owner Private Login</h3>
-        <button onclick="toggleAdminModal()" class="text-2xl font-bold text-gray-500 hover:text-black">&times;</button>
-      </div>
-      <div id="admin-login-step">
-        <p class="text-gray-600 mb-4">Enter password for private admin viewing and controls.</p>
-        <input type="password" id="admin-pass" placeholder="Enter Admin Password" class="w-full p-3 border-2 rounded-lg mb-4">
-        <button onclick="checkAdminPass()" class="w-full bg-golf-green text-white font-bold py-3 rounded-lg hover:bg-green-800">
-          Unlock Private Admin Panel
-        </button>
-        <p id="admin-err" class="text-red-600 text-sm mt-2 hidden">Incorrect password.</p>
-      </div>
-      <div id="admin-panel-step" class="hidden space-y-4">
-        <div class="bg-green-100 p-4 rounded-lg text-green-900 font-bold">
-          ✅ Authenticated as Site Owner
+  <!-- Password-Protected Admin Modal (Expanded Size & High-Legibility Table Layout) -->
+  <div id="admin-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50 overflow-y-auto">
+    <div class="bg-white p-8 rounded-2xl max-w-4xl w-full space-y-6 shadow-2xl border-4 border-golf-green my-8">
+      
+      <!-- Modal Header -->
+      <div class="flex justify-between items-center border-b pb-4">
+        <div>
+          <h3 class="text-3xl font-extrabold text-golf-green">Owner Private Admin Dashboard</h3>
+          <p class="text-gray-600 font-medium">Real-Time Visitor Analytics & Traffic Monitoring</p>
         </div>
-        <p class="text-sm text-gray-600">Visitor Logs & IP Traffic:</p>
-        <textarea readonly class="w-full h-32 p-2 bg-gray-100 text-xs font-mono rounded">
-[2026-08-09 10:02:46] User Visit | Williamsburg, VA | IP: 172.56.x.x
-[2026-08-09 09:45:12] User Visit | Orlando, FL | IP: 98.210.x.x
-[2026-08-09 09:12:05] User Visit | San Diego, CA | IP: 67.180.x.x
-        </textarea>
+        <button onclick="toggleAdminModal()" class="text-3xl font-bold text-gray-500 hover:text-black">&times;</button>
       </div>
+
+      <!-- Step 1: Password Input -->
+      <div id="admin-login-step" class="py-4">
+        <p class="text-lg text-gray-700 font-semibold mb-4">Enter owner password to unlock private visitor logs:</p>
+        <div class="flex gap-4 max-w-md">
+          <input type="password" id="admin-pass" placeholder="Enter Admin Password" class="flex-1 p-3 text-lg border-2 border-gray-300 rounded-lg outline-none focus:border-golf-green">
+          <button onclick="checkAdminPass()" class="bg-golf-green text-white text-lg font-bold px-6 py-3 rounded-lg hover:bg-green-800 transition">
+            Unlock Panel
+          </button>
+        </div>
+        <p id="admin-err" class="text-red-600 font-bold text-md mt-3 hidden">⚠️ Incorrect password. Try again.</p>
+      </div>
+
+      <!-- Step 2: Expanded Live Visitor Logs Table -->
+      <div id="admin-panel-step" class="hidden space-y-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-green-50 p-4 rounded-xl border border-golf-green gap-2">
+          <div class="flex items-center space-x-3">
+            <span class="text-2xl">✅</span>
+            <span class="text-xl font-bold text-golf-green">Authenticated as Site Owner</span>
+          </div>
+          <span class="text-sm font-bold bg-golf-green text-white px-3 py-1.5 rounded-md">Live Timer Updating</span>
+        </div>
+
+        <div>
+          <h4 class="text-xl font-bold text-gray-900 mb-3">Logged Visitors (Ascending Chronological Order)</h4>
+          
+          <!-- Spacious, High-Contrast Visitor Table -->
+          <div class="overflow-x-auto border-2 border-gray-200 rounded-xl shadow-sm">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-golf-green text-white text-lg">
+                  <th class="p-4 border-b font-bold">#</th>
+                  <th class="p-4 border-b font-bold">Timestamp (Ascending)</th>
+                  <th class="p-4 border-b font-bold">Location</th>
+                  <th class="p-4 border-b font-bold">IP Address</th>
+                  <th class="p-4 border-b font-bold">Time on Site (Real-Time)</th>
+                </tr>
+              </thead>
+              <tbody id="admin-visitor-rows" class="divide-y divide-gray-200 text-lg font-semibold text-gray-900 bg-white">
+                <!-- Dynamically populated via app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
