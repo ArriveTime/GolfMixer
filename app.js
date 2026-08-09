@@ -48,12 +48,11 @@ function updateClock() {
   const now = new Date();
   const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
   const timeZoneStr = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  
   const timeFormatted = now.toLocaleTimeString('en-US', timeOptions) + " (" + timeZoneStr + ")";
   document.getElementById("visitor-time").innerText = timeFormatted;
 }
 
-// 2. Directory Search Filter (ZIP Code & State)
+// 2. Directory Search Filter (ZIP Code & State) - Supports ALL US ZIP Codes
 function searchCourses() {
   const zip = document.getElementById("zip-input").value.trim();
   const state = document.getElementById("state-input").value;
@@ -64,21 +63,49 @@ function searchCourses() {
     return matchesZip && matchesState;
   });
 
-  renderCourses(filtered);
+  renderCourses(filtered, zip, state);
 }
 
-function renderCourses(list) {
+function renderCourses(list, searchedZip = "", searchedState = "") {
   const container = document.getElementById("course-results");
+  let html = "";
+
+  // Dynamic search banner for ANY US ZIP code typed by a visitor
+  if (searchedZip.length >= 3) {
+    html += `
+      <div class="col-span-1 md:col-span-2 bg-green-50 border-2 border-golf-green p-6 rounded-xl space-y-2">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div>
+            <h3 class="text-xl font-bold text-golf-green">📍 Searching All US Courses Near ZIP: ${searchedZip}</h3>
+            <p class="text-gray-700">Displaying matching directory courses and direct map locations near <strong>${searchedZip}</strong>.</p>
+          </div>
+          <a href="https://www.google.com/maps/search/golf+courses+near+${searchedZip}" target="_blank" rel="noopener noreferrer" 
+             class="bg-golf-green text-white font-bold py-3 px-6 rounded-lg hover:bg-green-800 transition text-center whitespace-nowrap">
+            Find All Courses Near ${searchedZip} ↗
+          </a>
+        </div>
+      </div>
+    `;
+  }
+
   if (list.length === 0) {
-    container.innerHTML = `
-      <div class="col-span-2 bg-gray-50 p-6 rounded-xl border border-gray-300 text-center">
-        <p class="text-xl font-bold text-gray-700">No golf courses found for that ZIP or State.</p>
-        <p class="text-gray-500 mt-1">Try searching by State or clearing the search box.</p>
-      </div>`;
+    if (!searchedZip && !searchedState) {
+      container.innerHTML = `
+        <div class="col-span-1 md:col-span-2 bg-gray-50 p-6 rounded-xl border border-gray-300 text-center">
+          <p class="text-xl font-bold text-gray-700">No golf courses found for that ZIP or State.</p>
+          <p class="text-gray-500 mt-1">Try entering any 5-digit US ZIP code above.</p>
+        </div>`;
+    } else {
+      container.innerHTML = html + `
+        <div class="col-span-1 md:col-span-2 bg-gray-50 p-6 rounded-xl border border-gray-300 text-center mt-2">
+          <p class="text-lg font-bold text-gray-700">No local featured entries for ZIP ${searchedZip || searchedState}.</p>
+          <p class="text-gray-600 mt-1">Click the green button above to view all public, private, and resort golf courses in ZIP <strong>${searchedZip}</strong> across the United States.</p>
+        </div>`;
+    }
     return;
   }
 
-  container.innerHTML = list.map(c => `
+  html += list.map(c => `
     <div class="bg-white p-6 rounded-xl border-2 border-gray-200 hover:border-golf-green transition shadow-sm space-y-2">
       <div class="flex justify-between items-start">
         <h3 class="text-2xl font-bold text-golf-green">${c.name}</h3>
@@ -86,11 +113,14 @@ function renderCourses(list) {
       </div>
       <p class="text-lg text-gray-700">${c.city}, ${c.state} ${c.zip}</p>
       <p class="text-md text-gray-600">📞 Phone: <span class="font-bold text-black">${c.phone}</span></p>
-      <button class="w-full mt-4 bg-gray-100 text-golf-green font-bold py-3 rounded-lg hover:bg-golf-green hover:text-white transition text-lg">
-        View Course & Tee Times
-      </button>
+      <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.name + ' ' + c.city + ' ' + c.state)}" target="_blank" rel="noopener noreferrer" 
+         class="inline-block w-full text-center mt-4 bg-gray-100 text-golf-green font-bold py-3 rounded-lg hover:bg-golf-green hover:text-white transition text-lg">
+        View Course & Location ↗
+      </a>
     </div>
   `).join('');
+
+  container.innerHTML = html;
 }
 
 // 3. Golf Mixer & Social Group Creation
@@ -134,19 +164,46 @@ function joinMixer(idx) {
   }
 }
 
-// 4. Live News & Tournament Feeds
+// 4. Live News & Tournament Feeds with Destination Links
 function renderNews() {
   const newsItems = [
-    { title: "Current PGA & LPGA Leaderboards & Champions", tag: "Tournaments", date: "Live Feed" },
-    { title: "Upcoming Local Charity Scrambles & Golf Outings", tag: "Charity Events", date: "This Month" },
-    { title: "Pro Golf Swing Tips & Clubhouse Private Lessons", tag: "Golf Lessons", date: "Weekly Feature" }
+    { 
+      title: "Current PGA & LPGA Leaderboards & Champions", 
+      tag: "Tournaments", 
+      date: "Live Feed",
+      link: "https://www.pgatour.com/leaderboard",
+      description: "Real-time scores, tournament standings, and PGA/LPGA champion updates."
+    },
+    { 
+      title: "Upcoming Local Charity Scrambles & Golf Outings", 
+      tag: "Charity Events", 
+      date: "This Month",
+      link: "https://golfstatus.com/events",
+      description: "Find local charity scrambles, fundraising outings, and clubhouse benefit matches."
+    },
+    { 
+      title: "Pro Golf Swing Tips & Clubhouse Private Lessons", 
+      tag: "Golf Lessons", 
+      date: "Weekly Feature",
+      link: "https://www.pga.com/coaching",
+      description: "Connect with certified PGA pros for local lessons, swing analysis, and practice tips."
+    }
   ];
 
   document.getElementById("news-feed").innerHTML = newsItems.map(n => `
-    <div class="bg-white p-6 rounded-xl border-2 border-gray-200 shadow-sm space-y-3 hover:border-golf-green transition">
-      <span class="bg-green-100 text-golf-green text-xs font-extrabold uppercase px-3 py-1 rounded-md">${n.tag}</span>
-      <h4 class="text-xl font-bold text-gray-900">${n.title}</h4>
-      <p class="text-sm text-gray-500 font-semibold">Status: ${n.date}</p>
+    <div class="bg-white p-6 rounded-xl border-2 border-gray-200 shadow-sm space-y-3 hover:border-golf-green transition flex flex-col justify-between">
+      <div class="space-y-3">
+        <div class="flex justify-between items-center">
+          <span class="bg-green-100 text-golf-green text-xs font-extrabold uppercase px-3 py-1 rounded-md">${n.tag}</span>
+          <span class="text-xs text-gray-500 font-semibold">${n.date}</span>
+        </div>
+        <h4 class="text-xl font-bold text-gray-900">${n.title}</h4>
+        <p class="text-sm text-gray-600">${n.description}</p>
+      </div>
+      <a href="${n.link}" target="_blank" rel="noopener noreferrer" 
+         class="inline-block text-center w-full bg-golf-green text-white font-bold py-3 rounded-lg hover:bg-green-800 transition text-md mt-2">
+        Click to View Live ↗
+      </a>
     </div>
   `).join('');
 }
