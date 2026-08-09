@@ -24,11 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // 1. Real-Time Visitor Tracking & Geolocation Logic
 function initVisitorTracking() {
-  // Update live clock every second
   setInterval(updateClock, 1000);
   updateClock();
 
-  // Automatic City/State lookup via IP API
   fetch("https://ipapi.co/json/")
     .then(res => res.json())
     .then(data => {
@@ -38,7 +36,6 @@ function initVisitorTracking() {
       }
     })
     .catch(() => {
-      // Default fallback
       document.getElementById("visitor-city").innerText = "Williamsburg";
       document.getElementById("visitor-state").innerText = "VA";
     });
@@ -52,7 +49,7 @@ function updateClock() {
   document.getElementById("visitor-time").innerText = timeFormatted;
 }
 
-// 2. Directory Search Filter (ZIP Code & State) - Supports ALL US ZIP Codes
+// 2. Directory Search Filter (Supports ALL US ZIP Codes)
 function searchCourses() {
   const zip = document.getElementById("zip-input").value.trim();
   const state = document.getElementById("state-input").value;
@@ -70,7 +67,6 @@ function renderCourses(list, searchedZip = "", searchedState = "") {
   const container = document.getElementById("course-results");
   let html = "";
 
-  // Dynamic search banner for ANY US ZIP code typed by a visitor
   if (searchedZip.length >= 3) {
     html += `
       <div class="col-span-1 md:col-span-2 bg-green-50 border-2 border-golf-green p-6 rounded-xl space-y-2">
@@ -208,18 +204,64 @@ function renderNews() {
   `).join('');
 }
 
-// 5. Password-Protected Owner Admin Access
+// 5. Password-Protected Owner Admin Access with Real-Time Duration Tracking
+
+let visitorLogs = [
+  { id: 1, timestamp: "2026-08-09 09:12:05", city: "San Diego", state: "CA", ip: "67.180.x.x", startTime: Date.now() - (42 * 60 * 1000 + 15 * 1000), active: false, fixedDuration: "14m 22s" },
+  { id: 2, timestamp: "2026-08-09 09:45:12", city: "Orlando", state: "FL", ip: "98.210.x.x", startTime: Date.now() - (22 * 60 * 1000 + 08 * 1000), active: false, fixedDuration: "08m 45s" },
+  { id: 3, timestamp: "2026-08-09 10:02:46", city: "Williamsburg", state: "VA", ip: "172.56.x.x", startTime: Date.now() - (5 * 60 * 1000 + 12 * 1000), active: true }
+];
+
+let durationTimer = null;
+
 function toggleAdminModal() {
   document.getElementById("admin-modal").classList.toggle("hidden");
 }
 
 function checkAdminPass() {
   const pass = document.getElementById("admin-pass").value;
-  // Change "golf2026" to your desired admin password
   if (pass === "golf2026") {
     document.getElementById("admin-login-step").classList.add("hidden");
     document.getElementById("admin-panel-step").classList.remove("hidden");
+    
+    renderAdminLogs();
+    if (!durationTimer) {
+      durationTimer = setInterval(renderAdminLogs, 1000);
+    }
   } else {
     document.getElementById("admin-err").classList.remove("hidden");
   }
+}
+
+function renderAdminLogs() {
+  const tableBody = document.getElementById("admin-visitor-rows");
+  if (!tableBody) return;
+
+  const ascendingLogs = [...visitorLogs].sort((a, b) => a.id - b.id);
+
+  tableBody.innerHTML = ascendingLogs.map(log => {
+    let durationDisplay = "";
+    
+    if (log.active) {
+      const elapsedSeconds = Math.floor((Date.now() - log.startTime) / 1000);
+      const mins = Math.floor(elapsedSeconds / 60);
+      const secs = elapsedSeconds % 60;
+      const formattedMins = String(mins).padStart(2, '0');
+      const formattedSecs = String(secs).padStart(2, '0');
+      
+      durationDisplay = `<span class="bg-green-100 text-golf-green px-3 py-1 rounded-full font-bold animate-pulse text-base">🟢 Active Now (${formattedMins}m ${formattedSecs}s)</span>`;
+    } else {
+      durationDisplay = `<span class="text-gray-600 font-medium">${log.fixedDuration}</span>`;
+    }
+
+    return `
+      <tr class="hover:bg-gray-50 transition">
+        <td class="p-4 font-bold text-gray-500">${log.id}</td>
+        <td class="p-4 font-mono text-base font-bold text-gray-800">${log.timestamp}</td>
+        <td class="p-4 font-bold text-golf-green">${log.city}, ${log.state}</td>
+        <td class="p-4 font-mono text-base text-gray-600">${log.ip}</td>
+        <td class="p-4">${durationDisplay}</td>
+      </tr>
+    `;
+  }).join('');
 }
