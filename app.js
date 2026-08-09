@@ -43,9 +43,10 @@ function initVisitorTracking() {
 
 function updateClock() {
   const now = new Date();
-  const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-  const timeZoneStr = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const timeFormatted = now.toLocaleTimeString('en-US', timeOptions) + " (" + timeZoneStr + ")";
+  const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true, timeZoneName: 'short' };
+  
+  // Displays as clean standard abbreviation (e.g. "10:53:35 AM EDT")
+  const timeFormatted = now.toLocaleTimeString('en-US', timeOptions);
   document.getElementById("visitor-time").innerText = timeFormatted;
 }
 
