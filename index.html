@@ -48,9 +48,6 @@
         <a href="#directory" class="hover:underline">Directory</a>
         <a href="#news" class="hover:underline">Live News</a>
         <a href="#mixers" class="hover:underline">Golf Mixers</a>
-        <button onclick="toggleAdminModal()" class="bg-white text-golf-green px-4 py-2 rounded-md hover:bg-gray-100 transition shadow font-bold">
-          🔒 Admin Access
-        </button>
       </nav>
     </div>
   </header>
@@ -184,7 +181,7 @@
 
   </main>
 
-  <!-- Password-Protected Admin Modal (Expanded Size & High-Legibility Table Layout) -->
+  <!-- Password-Protected Admin Modal -->
   <div id="admin-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50 overflow-y-auto">
     <div class="bg-white p-8 rounded-2xl max-w-4xl w-full space-y-6 shadow-2xl border-4 border-golf-green my-8">
       
@@ -222,7 +219,6 @@
         <div>
           <h4 class="text-xl font-bold text-gray-900 mb-3">Logged Visitors (Ascending Chronological Order)</h4>
           
-          <!-- Spacious, High-Contrast Visitor Table -->
           <div class="overflow-x-auto border-2 border-gray-200 rounded-xl shadow-sm">
             <table class="w-full text-left border-collapse">
               <thead>
@@ -247,12 +243,17 @@
 
   <!-- Footer -->
   <footer class="bg-golf-green text-white border-t-4 border-green-800 py-8 px-6 mt-12">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4">
       <div>
         <p class="text-2xl font-bold">GolfMixer.com</p>
         <p class="text-green-200 text-sm mt-1">Connecting golfers, courses, and communities across America.</p>
       </div>
-      <p class="text-sm text-green-200 mt-4 md:mt-0">&copy; 2026 GolfMixer.com. All rights reserved.</p>
+      <div class="flex flex-col items-center md:items-end">
+        <p class="text-sm text-green-200">&copy; 2026 GolfMixer.com. All rights reserved.</p>
+        <button onclick="toggleAdminModal()" class="text-xs text-green-300 hover:text-white underline mt-1.5 transition opacity-70 hover:opacity-100">
+          Admin Access
+        </button>
+      </div>
     </div>
   </footer>
 
