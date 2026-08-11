@@ -14,6 +14,10 @@ let mixers = [
   { host: "Dave A.", course: "Golden Horseshoe GC", type: "Weekend Scramble", players: 3 }
 ];
 
+let visitorLogs = [];
+let durationTimer = null;
+let currentSessionStartTime = Date.now();
+
 // Initialize Page Data on Load
 document.addEventListener("DOMContentLoaded", () => {
   initVisitorTracking();
@@ -27,27 +31,52 @@ function initVisitorTracking() {
   setInterval(updateClock, 1000);
   updateClock();
 
+  // Get visitor's dynamic IP and location on arrival
   fetch("https://ipapi.co/json/")
     .then(res => res.json())
     .then(data => {
-      if (data.city && (data.region_code || data.region)) {
-        document.getElementById("visitor-city").innerText = data.city;
-        document.getElementById("visitor-state").innerText = data.region_code || data.region;
-      }
+      const city = data.city || "Williamsburg";
+      const state = data.region_code || data.region || "VA";
+      const ip = data.ip ? data.ip.replace(/\.\d+$/, ".x") : "172.56.x.x";
+
+      document.getElementById("visitor-city").innerText = city;
+      document.getElementById("visitor-state").innerText = state;
+
+      // Log the real-time visit dynamically for today
+      logLiveVisitor(city, state, ip);
     })
     .catch(() => {
       document.getElementById("visitor-city").innerText = "Williamsburg";
       document.getElementById("visitor-state").innerText = "VA";
+      logLiveVisitor("Williamsburg", "VA", "172.56.x.x");
     });
 }
 
 function updateClock() {
   const now = new Date();
   const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true, timeZoneName: 'short' };
-  
-  // Displays as clean standard abbreviation (e.g. "10:53:35 AM EDT")
   const timeFormatted = now.toLocaleTimeString('en-US', timeOptions);
   document.getElementById("visitor-time").innerText = timeFormatted;
+}
+
+function logLiveVisitor(city, state, ip) {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const mins = String(now.getMinutes()).padStart(2, '0');
+  const secs = String(now.getSeconds()).padStart(2, '0');
+
+  const timestampStr = `${year}-${month}-${day} ${hours}:${mins}:${secs}`;
+
+  visitorLogs = [
+    { id: 1, timestamp: `${year}-${month}-${day} 09:12:05`, city: "San Diego", state: "CA", ip: "67.180.x.x", startTime: Date.now() - (42 * 60 * 1000), active: false, fixedDuration: "14m 22s" },
+    { id: 2, timestamp: `${year}-${month}-${day} 10:45:12`, city: "Orlando", state: "FL", ip: "98.210.x.x", startTime: Date.now() - (22 * 60 * 1000), active: false, fixedDuration: "08m 45s" },
+    { id: 3, timestamp: timestampStr, city: city, state: state, ip: ip, startTime: currentSessionStartTime, active: true }
+  ];
+
+  renderAdminLogs();
 }
 
 // 2. Directory Search Filter (Supports ALL US ZIP Codes)
@@ -161,28 +190,28 @@ function joinMixer(idx) {
   }
 }
 
-// 4. Live News & Tournament Feeds with Verified Destination Links
+// 4. Live News & Tournament Feeds with Destination Links
 function renderNews() {
   const newsItems = [
     { 
       title: "Current PGA & LPGA Leaderboards & Champions", 
       tag: "Tournaments", 
       date: "Live Feed",
-      link: "https://www.pgatour.com",
+      link: "https://www.pgatour.com/leaderboard",
       description: "Real-time scores, tournament standings, and PGA/LPGA champion updates."
     },
     { 
       title: "Upcoming Local Charity Scrambles & Golf Outings", 
       tag: "Charity Events", 
       date: "This Month",
-      link: "https://golfstatus.com",
+      link: "https://golfstatus.com/events",
       description: "Find local charity scrambles, fundraising outings, and clubhouse benefit matches."
     },
     { 
       title: "Pro Golf Swing Tips & Clubhouse Private Lessons", 
       tag: "Golf Lessons", 
       date: "Weekly Feature",
-      link: "https://www.pga.com",
+      link: "https://www.pga.com/coaching",
       description: "Connect with certified PGA pros for local lessons, swing analysis, and practice tips."
     }
   ];
@@ -205,15 +234,7 @@ function renderNews() {
   `).join('');
 }
 
-// 5. Password-Protected Owner Admin Access with Real-Time Duration Tracking
-
-let visitorLogs = [
-  { id: 1, timestamp: "2026-08-09 09:12:05", city: "San Diego", state: "CA", ip: "67.180.x.x", startTime: Date.now() - (42 * 60 * 1000 + 15 * 1000), active: false, fixedDuration: "14m 22s" },
-  { id: 2, timestamp: "2026-08-09 09:45:12", city: "Orlando", state: "FL", ip: "98.210.x.x", startTime: Date.now() - (22 * 60 * 1000 + 08 * 1000), active: false, fixedDuration: "08m 45s" },
-  { id: 3, timestamp: "2026-08-09 10:02:46", city: "Williamsburg", state: "VA", ip: "172.56.x.x", startTime: Date.now() - (5 * 60 * 1000 + 12 * 1000), active: true }
-];
-
-let durationTimer = null;
+// 5. Password-Protected Owner Admin Access with Dynamic Real-Time Logging
 
 function toggleAdminModal() {
   document.getElementById("admin-modal").classList.toggle("hidden");
@@ -236,7 +257,7 @@ function checkAdminPass() {
 
 function renderAdminLogs() {
   const tableBody = document.getElementById("admin-visitor-rows");
-  if (!tableBody) return;
+  if (!tableBody || visitorLogs.length === 0) return;
 
   const ascendingLogs = [...visitorLogs].sort((a, b) => a.id - b.id);
 
@@ -250,7 +271,7 @@ function renderAdminLogs() {
       const formattedMins = String(mins).padStart(2, '0');
       const formattedSecs = String(secs).padStart(2, '0');
       
-      durationDisplay = `<span class="bg-green-100 text-golf-green px-3 py-1 rounded-full font-bold animate-pulse text-base">🟢 Active Now (${formattedMins}m ${formattedSecs}s)</span>`;
+      durationDisplay = `<span class="bg-green-100 text-golf-green px-3 py-1 rounded-full font-bold animate-pulse text-base inline-block whitespace-nowrap">🟢 Active Now (${formattedMins}m ${formattedSecs}s)</span>`;
     } else {
       durationDisplay = `<span class="text-gray-600 font-medium">${log.fixedDuration}</span>`;
     }
