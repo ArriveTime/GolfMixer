@@ -7,29 +7,44 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
-      --golf-green: #0D522C;
-      --golf-accent: #1E824C;
       --golf-gold: #D4AF37;
-      --golf-gold-light: #F4E8C1;
+      --golf-dark: #0A1F14;
+      --golf-card: #122B1D;
+      --golf-accent: #1E4D32;
     }
     body {
-      background-color: #FAFAFA;
-      color: #111111;
+      background-color: #06120B;
+      color: #F3F4F6;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
-    .bg-golf-green { background-color: var(--golf-green); }
-    .text-golf-green { color: var(--golf-green); }
-    .border-golf-green { border-color: var(--golf-green); }
-    
-    .bg-golf-gold { background-color: var(--golf-gold); }
-    .text-golf-gold { color: var(--golf-gold); }
-    .border-golf-gold { border-color: var(--golf-gold); }
-
-    .gold-gradient {
-      background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+    .gold-text {
+      color: var(--golf-gold);
     }
-
-    /* High contrast, accessible typography */
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #FFF099 0%, #D4AF37 50%, #AA771C 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gold-border {
+      border-color: var(--golf-gold);
+    }
+    .gold-button {
+      background: linear-gradient(135deg, #D4AF37 0%, #B38728 100%);
+      color: #000000;
+      font-weight: 800;
+    }
+    .gold-button:hover {
+      background: linear-gradient(135deg, #F4E8C1 0%, #D4AF37 100%);
+    }
+    .golf-card-bg {
+      background-color: var(--golf-card);
+    }
+    .hero-pattern {
+      background-color: #06120B;
+      background-image: radial-gradient(#1E4D32 0.75px, transparent 0.75px), radial-gradient(#1E4D32 0.75px, #06120B 0.75px);
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+    }
     .tracking-large-text {
       font-size: 1.5rem;
       line-height: 2.25rem;
@@ -45,66 +60,66 @@
   </style>
 </head>
 
-<body class="min-h-screen flex flex-col justify-between">
+<body class="min-h-screen flex flex-col justify-between hero-pattern">
 
-  <!-- Main Professional Header -->
-  <header class="bg-golf-green text-white shadow-xl border-b-4 border-golf-gold">
+  <!-- Main Professional Dark/Gold Header -->
+  <header class="bg-[#0A1F14] text-white shadow-2xl border-b-2 border-[#D4AF37]">
     <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
       <div class="flex items-center space-x-4 text-center md:text-left">
         <span class="text-4xl" aria-hidden="true">⛳</span>
         <div>
-          <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white">
-            Golf<span class="text-golf-gold">Mixer</span>.com
+          <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight">
+            Golf<span class="gold-gradient-text">Mixer</span>.com
           </h1>
-          <p class="text-sm md:text-base font-semibold tracking-widest uppercase text-yellow-300 mt-1">
+          <p class="text-sm md:text-base font-semibold tracking-widest uppercase text-[#D4AF37] mt-1">
             "The Gold Standard for the Golf Community"
           </p>
         </div>
       </div>
       <nav class="flex flex-wrap items-center justify-center space-x-4 md:space-x-6 text-base md:text-lg font-bold" aria-label="Main Navigation">
-        <a href="#directory" class="hover:text-yellow-300 transition py-1 px-2">Course Finder</a>
-        <a href="#mixers" class="hover:text-yellow-300 transition py-1 px-2">Mixers & Teams</a>
-        <a href="#clubhouse" class="hover:text-yellow-300 transition py-1 px-2">19th Hole Social</a>
-        <a href="#profiles" class="hover:text-yellow-300 transition py-1 px-2">Golfer Profiles</a>
-        <a href="#news" class="hover:text-yellow-300 transition py-1 px-2">Golf News</a>
+        <a href="#directory" class="hover:text-[#D4AF37] transition py-1 px-2">Course Finder</a>
+        <a href="#mixers" class="hover:text-[#D4AF37] transition py-1 px-2">Mixers & Teams</a>
+        <a href="#clubhouse" class="hover:text-[#D4AF37] transition py-1 px-2">19th Hole Social</a>
+        <a href="#profiles" class="hover:text-[#D4AF37] transition py-1 px-2">Golfer Profiles</a>
+        <a href="#news" class="hover:text-[#D4AF37] transition py-1 px-2">Golf News</a>
       </nav>
     </div>
   </header>
 
-  <!-- Real-Time Activity & Visitor Bar -->
-  <section class="bg-white border-b-2 border-gray-200 py-6 px-6">
+  <!-- Real-Time Activity Bar -->
+  <section class="bg-[#0D2619] border-b border-[#1E4D32] py-6 px-6">
     <div class="max-w-7xl mx-auto">
       <div class="flex items-center space-x-3 mb-3">
         <span class="relative flex h-4 w-4">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-4 w-4 bg-green-600"></span>
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-4 w-4 bg-[#D4AF37]"></span>
         </span>
-        <h2 class="text-xl font-bold uppercase tracking-wider text-golf-green">Live Clubhouse & Visitor Activity</h2>
+        <h2 class="text-xl font-bold uppercase tracking-wider text-[#D4AF37]">Live Clubhouse & Visitor Activity</h2>
       </div>
 
-      <div class="bg-gray-50 border-2 border-golf-green rounded-xl p-5 shadow-sm">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-900 border-b pb-4">
+      <div class="bg-[#0A1F14] border-2 border-[#D4AF37] rounded-xl p-5 shadow-lg">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 border-b border-[#1E4D32] pb-4">
           <div>
-            <p class="text-xs uppercase font-bold text-gray-500 tracking-wider">Today's Total Visitors</p>
-            <p id="daily-count" class="tracking-large-text text-golf-green">1,482 Visitors</p>
+            <p class="text-xs uppercase font-bold text-gray-400 tracking-wider">Today's Total Visitors</p>
+            <p id="daily-count" class="tracking-large-text text-white">1,482 Visitors</p>
           </div>
           <div>
-            <p class="text-xs uppercase font-bold text-gray-500 tracking-wider">Golfers Active Online</p>
-            <p id="live-online" class="tracking-large-text text-green-700">38 Online</p>
+            <p class="text-xs uppercase font-bold text-gray-400 tracking-wider">Golfers Active Online</p>
+            <p id="live-online" class="tracking-large-text text-green-400">38 Online</p>
           </div>
           <div>
-            <p class="text-xs uppercase font-bold text-gray-500 tracking-wider">Registered Golfer Profiles</p>
-            <p id="profile-count" class="tracking-large-text text-yellow-700">124 Profiles</p>
+            <p class="text-xs uppercase font-bold text-gray-400 tracking-wider">Registered Golfer Profiles</p>
+            <p id="profile-count" class="tracking-large-text gold-text">124 Profiles</p>
           </div>
         </div>
 
         <div class="pt-3">
-          <p class="text-xs uppercase font-bold text-gray-500 tracking-wider mb-1">Your Real-Time GPS Location Log</p>
-          <div class="text-lg md:text-xl font-bold text-black bg-white p-3 rounded-lg border border-gray-200 flex flex-wrap items-center">
-            <span id="visitor-city" class="text-golf-green">Detecting Location...</span>,&nbsp;
-            <span id="visitor-state" class="text-golf-green">State</span>
-            <span class="mx-3 text-gray-400">|</span> 
-            <span id="visitor-time" class="text-black">--:--:-- PM</span>
+          <p class="text-xs uppercase font-bold text-gray-400 tracking-wider mb-1">Your Real-Time GPS Location Log</p>
+          <div class="text-lg md:text-xl font-bold text-white bg-[#122B1D] p-3 rounded-lg border border-[#1E4D32] flex flex-wrap items-center">
+            <span id="visitor-city" class="gold-text">Detecting Location...</span>,&nbsp;
+            <span id="visitor-state" class="gold-text">State</span>
+            <span class="mx-3 text-gray-500">|</span> 
+            <span id="visitor-time" class="text-white">--:--:-- PM</span>
           </div>
         </div>
       </div>
@@ -116,21 +131,21 @@
 
     <!-- GPS & ZIP Code Course Directory -->
     <section id="directory" class="space-y-6">
-      <div class="border-b-4 border-golf-gold pb-3 flex flex-col md:flex-row justify-between items-start md:items-end gap-2">
+      <div class="border-b-2 border-[#D4AF37] pb-3 flex flex-col md:flex-row justify-between items-start md:items-end gap-2">
         <div>
-          <h2 class="text-3xl md:text-4xl font-extrabold text-golf-green">Top Golf Courses & Country Clubs</h2>
-          <p class="text-lg text-gray-600 mt-1">Locate top golf facilities by GPS or enter any US ZIP code.</p>
+          <h2 class="text-3xl md:text-4xl font-extrabold gold-gradient-text">Top Golf Courses & Country Clubs</h2>
+          <p class="text-lg text-gray-300 mt-1">Locate top golf facilities by GPS or enter any US ZIP code.</p>
         </div>
-        <button onclick="useGPSLocation()" class="bg-golf-gold text-black font-bold px-4 py-2 rounded-lg hover:bg-yellow-500 transition shadow-sm flex items-center gap-2">
+        <button onclick="useGPSLocation()" class="gold-button px-4 py-2 rounded-lg transition shadow-md flex items-center gap-2">
           <span>📍</span> Use My Current GPS Location
         </button>
       </div>
 
-      <div class="bg-white p-6 rounded-xl border-2 border-golf-green shadow-md space-y-4">
+      <div class="golf-card-bg p-6 rounded-xl border-2 border-[#1E4D32] shadow-xl space-y-4">
         <div class="flex flex-col md:flex-row gap-4">
           <input type="text" id="zip-input" placeholder="Enter 5-Digit ZIP Code (e.g., 23185, 32082)" 
-                 class="flex-1 px-4 py-3 text-xl border-2 border-gray-300 rounded-lg focus:border-golf-green outline-none">
-          <select id="state-input" class="px-4 py-3 text-xl border-2 border-gray-300 rounded-lg focus:border-golf-green outline-none">
+                 class="flex-1 px-4 py-3 text-xl bg-[#0A1F14] text-white border-2 border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
+          <select id="state-input" class="px-4 py-3 text-xl bg-[#0A1F14] text-white border-2 border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
             <option value="">All States</option>
             <option value="VA">Virginia</option>
             <option value="FL">Florida</option>
@@ -138,11 +153,11 @@
             <option value="NC">North Carolina</option>
             <option value="SC">South Carolina</option>
           </select>
-          <button onclick="searchCourses()" class="bg-golf-green text-white text-xl font-bold px-8 py-3 rounded-lg hover:bg-green-800 transition">
+          <button onclick="searchCourses()" class="gold-button text-xl px-8 py-3 rounded-lg transition">
             Search Courses
           </button>
         </div>
-        <p id="search-status" class="text-sm font-semibold text-gray-600">Showing all top featured golf clubs across the network.</p>
+        <p id="search-status" class="text-sm font-semibold text-gray-400">Showing all top featured golf clubs across the network.</p>
       </div>
 
       <div id="course-results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -152,41 +167,41 @@
 
     <!-- Golfer Profile Creation Hub -->
     <section id="profiles" class="space-y-6">
-      <div class="border-b-4 border-golf-gold pb-3">
-        <h2 class="text-3xl md:text-4xl font-extrabold text-golf-green">Golfer Profiles & Directory</h2>
-        <p class="text-lg text-gray-600 mt-1">Create your profile, upload your swing/photo, and list your home course.</p>
+      <div class="border-b-2 border-[#D4AF37] pb-3">
+        <h2 class="text-3xl md:text-4xl font-extrabold gold-gradient-text">Golfer Profiles & Directory</h2>
+        <p class="text-lg text-gray-300 mt-1">Create your profile, upload your photo, and list your home course.</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Create Profile Form -->
-        <div class="bg-white border-2 border-golf-green p-6 rounded-xl shadow-md">
-          <h3 class="text-2xl font-bold text-golf-green mb-4 border-b pb-2">Create Your Golfer Profile</h3>
+        <div class="golf-card-bg border-2 border-[#1E4D32] p-6 rounded-xl shadow-xl">
+          <h3 class="text-2xl font-bold gold-text mb-4 border-b border-[#1E4D32] pb-2">Create Your Golfer Profile</h3>
           <form id="profile-form" onsubmit="createGolferProfile(event)" class="space-y-4">
             <div>
-              <label for="prof-name" class="block text-sm font-bold text-gray-700 mb-1">Full Name</label>
-              <input type="text" id="prof-name" required placeholder="e.g., Robert Kayian" class="w-full p-3 border border-gray-300 rounded-lg focus:border-golf-green outline-none">
+              <label for="prof-name" class="block text-sm font-bold text-gray-300 mb-1">Full Name</label>
+              <input type="text" id="prof-name" required placeholder="e.g., Robert Kayian" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
             </div>
             <div>
-              <label for="prof-handicap" class="block text-sm font-bold text-gray-700 mb-1">Handicap Index / Skill Level</label>
-              <input type="text" id="prof-handicap" required placeholder="e.g., 12.4 or Casual Player" class="w-full p-3 border border-gray-300 rounded-lg focus:border-golf-green outline-none">
+              <label for="prof-handicap" class="block text-sm font-bold text-gray-300 mb-1">Handicap Index / Skill Level</label>
+              <input type="text" id="prof-handicap" required placeholder="e.g., 12.4 or Casual Player" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
             </div>
             <div>
-              <label for="prof-course" class="block text-sm font-bold text-gray-700 mb-1">Home Golf Course / Club</label>
-              <input type="text" id="prof-course" required placeholder="e.g., Golden Horseshoe Golf Club" class="w-full p-3 border border-gray-300 rounded-lg focus:border-golf-green outline-none">
+              <label for="prof-course" class="block text-sm font-bold text-gray-300 mb-1">Home Golf Course / Club</label>
+              <input type="text" id="prof-course" required placeholder="e.g., Golden Horseshoe Golf Club" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
             </div>
             <div>
-              <label for="prof-location" class="block text-sm font-bold text-gray-700 mb-1">City & State</label>
-              <input type="text" id="prof-location" required placeholder="e.g., Williamsburg, VA" class="w-full p-3 border border-gray-300 rounded-lg focus:border-golf-green outline-none">
+              <label for="prof-location" class="block text-sm font-bold text-gray-300 mb-1">City & State</label>
+              <input type="text" id="prof-location" required placeholder="e.g., Williamsburg, VA" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
             </div>
             <div>
-              <label for="prof-photo" class="block text-sm font-bold text-gray-700 mb-1">Upload Profile Photo / Golf Picture</label>
-              <input type="file" id="prof-photo" accept="image/*" class="w-full p-2 border border-gray-300 rounded-lg focus:border-golf-green outline-none">
+              <label for="prof-photo" class="block text-sm font-bold text-gray-300 mb-1">Upload Profile Photo / Golf Picture</label>
+              <input type="file" id="prof-photo" accept="image/*" class="w-full p-2 bg-[#0A1F14] text-gray-300 border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
             </div>
             <div>
-              <label for="prof-bio" class="block text-sm font-bold text-gray-700 mb-1">Short Golf Bio</label>
-              <textarea id="prof-bio" rows="2" placeholder="Tell other members about your game..." class="w-full p-3 border border-gray-300 rounded-lg focus:border-golf-green outline-none"></textarea>
+              <label for="prof-bio" class="block text-sm font-bold text-gray-300 mb-1">Short Golf Bio</label>
+              <textarea id="prof-bio" rows="2" placeholder="Tell other members about your game..." class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none"></textarea>
             </div>
-            <button type="submit" class="w-full bg-golf-green text-white font-bold py-3 rounded-lg hover:bg-green-800 transition">
+            <button type="submit" class="w-full gold-button py-3 rounded-lg transition">
               Publish Profile
             </button>
           </form>
@@ -194,7 +209,7 @@
 
         <!-- Golfer Profiles List -->
         <div class="lg:col-span-2 space-y-4">
-          <h3 class="text-2xl font-bold text-gray-900">Featured Members</h3>
+          <h3 class="text-2xl font-bold text-white">Featured Members</h3>
           <div id="profiles-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <!-- Dynamically Populated Profiles -->
           </div>
@@ -204,27 +219,27 @@
 
     <!-- 19th Hole Clubhouse Social Lounge -->
     <section id="clubhouse" class="space-y-6">
-      <div class="border-b-4 border-golf-gold pb-3">
-        <h2 class="text-3xl md:text-4xl font-extrabold text-golf-green">The 19th Hole: Clubhouse Social Lounge</h2>
-        <p class="text-lg text-gray-600 mt-1">Post after-golf social plans, dinner meetups, and clubhouse events.</p>
+      <div class="border-b-2 border-[#D4AF37] pb-3">
+        <h2 class="text-3xl md:text-4xl font-extrabold gold-gradient-text">The 19th Hole: Clubhouse Social Lounge</h2>
+        <p class="text-lg text-gray-300 mt-1">Post after-golf social plans, dinner meetups, and clubhouse events.</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Post Social Event Form -->
-        <div class="bg-white border-2 border-golf-green p-6 rounded-xl shadow-md">
-          <h3 class="text-2xl font-bold text-golf-green mb-4 border-b pb-2">Post Clubhouse Social Activity</h3>
+        <div class="golf-card-bg border-2 border-[#1E4D32] p-6 rounded-xl shadow-xl">
+          <h3 class="text-2xl font-bold gold-text mb-4 border-b border-[#1E4D32] pb-2">Post Clubhouse Social Activity</h3>
           <form id="social-form" onsubmit="createSocialPost(event)" class="space-y-4">
             <div>
-              <label for="social-author" class="block text-sm font-bold text-gray-700 mb-1">Your Name</label>
-              <input type="text" id="social-author" required placeholder="Your Name" class="w-full p-3 border border-gray-300 rounded-lg focus:border-golf-green outline-none">
+              <label for="social-author" class="block text-sm font-bold text-gray-300 mb-1">Your Name</label>
+              <input type="text" id="social-author" required placeholder="Your Name" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
             </div>
             <div>
-              <label for="social-club" class="block text-sm font-bold text-gray-700 mb-1">Clubhouse / Country Club Venue</label>
-              <input type="text" id="social-club" required placeholder="e.g., Kingsmill Dining Room" class="w-full p-3 border border-gray-300 rounded-lg focus:border-golf-green outline-none">
+              <label for="social-club" class="block text-sm font-bold text-gray-300 mb-1">Clubhouse / Country Club Venue</label>
+              <input type="text" id="social-club" required placeholder="e.g., Kingsmill Dining Room" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
             </div>
             <div>
-              <label for="social-activity" class="block text-sm font-bold text-gray-700 mb-1">Activity Type</label>
-              <select id="social-activity" class="w-full p-3 border border-gray-300 rounded-lg focus:border-golf-green outline-none">
+              <label for="social-activity" class="block text-sm font-bold text-gray-300 mb-1">Activity Type</label>
+              <select id="social-activity" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
                 <option value="Post-Round Drinks & Cocktail Hour">Post-Round Drinks & Cocktail Hour</option>
                 <option value="Clubhouse Dinner & Patio Social">Clubhouse Dinner & Patio Social</option>
                 <option value="Weekend Charity Scramble Banquet">Weekend Charity Scramble Banquet</option>
@@ -232,10 +247,10 @@
               </select>
             </div>
             <div>
-              <label for="social-desc" class="block text-sm font-bold text-gray-700 mb-1">Details & Meeting Time</label>
-              <textarea id="social-desc" rows="3" required placeholder="e.g., Meeting on the back patio at 5:00 PM after 18 holes!" class="w-full p-3 border border-gray-300 rounded-lg focus:border-golf-green outline-none"></textarea>
+              <label for="social-desc" class="block text-sm font-bold text-gray-300 mb-1">Details & Meeting Time</label>
+              <textarea id="social-desc" rows="3" required placeholder="e.g., Meeting on the back patio at 5:00 PM after 18 holes!" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none"></textarea>
             </div>
-            <button type="submit" class="w-full bg-golf-gold text-black font-bold py-3 rounded-lg hover:bg-yellow-500 transition">
+            <button type="submit" class="w-full gold-button py-3 rounded-lg transition">
               Post to 19th Hole Lounge
             </button>
           </form>
@@ -243,7 +258,7 @@
 
         <!-- Social Activity Feed -->
         <div class="lg:col-span-2 space-y-4">
-          <h3 class="text-2xl font-bold text-gray-900">Upcoming After-Golf Clubhouse Socials</h3>
+          <h3 class="text-2xl font-bold text-white">Upcoming After-Golf Clubhouse Socials</h3>
           <div id="social-feed" class="space-y-4">
             <!-- Dynamically Populated Posts -->
           </div>
@@ -253,39 +268,39 @@
 
     <!-- Golf Mixers & Team Finder -->
     <section id="mixers" class="space-y-6">
-      <div class="border-b-4 border-golf-gold pb-3">
-        <h2 class="text-3xl md:text-4xl font-extrabold text-golf-green">Golf Mixers & Group Matches</h2>
-        <p class="text-lg text-gray-600 mt-1">Organize weekend foursomes, scrambles, and casual golf match-ups.</p>
+      <div class="border-b-2 border-[#D4AF37] pb-3">
+        <h2 class="text-3xl md:text-4xl font-extrabold gold-gradient-text">Golf Mixers & Group Matches</h2>
+        <p class="text-lg text-gray-300 mt-1">Organize weekend foursomes, scrambles, and casual golf match-ups.</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="bg-white border-2 border-golf-green p-6 rounded-xl shadow-md">
-          <h3 class="text-2xl font-bold text-golf-green mb-4 border-b pb-2">Schedule a Golf Mixer</h3>
+        <div class="golf-card-bg border-2 border-[#1E4D32] p-6 rounded-xl shadow-xl">
+          <h3 class="text-2xl font-bold gold-text mb-4 border-b border-[#1E4D32] pb-2">Schedule a Golf Mixer</h3>
           <form id="mixer-form" onsubmit="createMixer(event)" class="space-y-4">
             <div>
-              <label for="host-name" class="block text-sm font-bold text-gray-700 mb-1">Host Name</label>
-              <input type="text" id="host-name" required placeholder="Organizer Name" class="w-full p-3 border border-gray-300 rounded-lg focus:border-golf-green outline-none">
+              <label for="host-name" class="block text-sm font-bold text-gray-300 mb-1">Host Name</label>
+              <input type="text" id="host-name" required placeholder="Organizer Name" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
             </div>
             <div>
-              <label for="mixer-course" class="block text-sm font-bold text-gray-700 mb-1">Golf Course</label>
-              <input type="text" id="mixer-course" required placeholder="e.g., Williamsburg National" class="w-full p-3 border border-gray-300 rounded-lg focus:border-golf-green outline-none">
+              <label for="mixer-course" class="block text-sm font-bold text-gray-300 mb-1">Golf Course</label>
+              <input type="text" id="mixer-course" required placeholder="e.g., Williamsburg National" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
             </div>
             <div>
-              <label for="mixer-type" class="block text-sm font-bold text-gray-700 mb-1">Event Format</label>
-              <select id="mixer-type" class="w-full p-3 border border-gray-300 rounded-lg focus:border-golf-green outline-none">
+              <label for="mixer-type" class="block text-sm font-bold text-gray-300 mb-1">Event Format</label>
+              <select id="mixer-type" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
                 <option value="Casual 4-Some Match">Casual 4-Some Match</option>
                 <option value="Weekend Scramble">Weekend Scramble</option>
                 <option value="9-Hole Afternoon Group">9-Hole Afternoon Group</option>
               </select>
             </div>
-            <button type="submit" class="w-full bg-golf-green text-white font-bold py-3 rounded-lg hover:bg-green-800 transition">
+            <button type="submit" class="w-full gold-button py-3 rounded-lg transition">
               Publish Golf Mixer
             </button>
           </form>
         </div>
 
         <div class="lg:col-span-2 space-y-4">
-          <h3 class="text-2xl font-bold text-gray-900">Available Tee-Time Mixers</h3>
+          <h3 class="text-2xl font-bold text-white">Available Tee-Time Mixers</h3>
           <div id="mixers-list" class="space-y-4">
             <!-- Dynamically Populated Mixers -->
           </div>
@@ -295,54 +310,54 @@
 
     <!-- News & Verified External Golf Links -->
     <section id="news" class="space-y-6">
-      <div class="border-b-4 border-golf-gold pb-3">
-        <h2 class="text-3xl md:text-4xl font-extrabold text-golf-green">Real-Time Golf News & Tournaments</h2>
-        <p class="text-lg text-gray-600 mt-1">Updates on PGA/LPGA tours, charity scrambles, and swing lessons.</p>
+      <div class="border-b-2 border-[#D4AF37] pb-3">
+        <h2 class="text-3xl md:text-4xl font-extrabold gold-gradient-text">Real-Time Golf News & Tournaments</h2>
+        <p class="text-lg text-gray-300 mt-1">Updates on PGA/LPGA tours, charity scrambles, and swing lessons.</p>
       </div>
 
       <div id="news-feed" class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex flex-col justify-between space-y-4">
+        <div class="golf-card-bg border border-[#1E4D32] rounded-xl p-6 shadow-md flex flex-col justify-between space-y-4">
           <div>
             <div class="flex justify-between items-center mb-3">
-              <span class="bg-green-100 text-golf-green text-xs font-bold px-2.5 py-1 rounded uppercase tracking-wider">Tournaments</span>
+              <span class="bg-[#1E4D32] gold-text text-xs font-bold px-2.5 py-1 rounded uppercase tracking-wider">Tournaments</span>
               <span class="text-xs text-gray-400 font-semibold">Live Updates</span>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">PGA & LPGA Leaderboards & Tour News</h3>
-            <p class="text-gray-600 text-sm">Real-time scores, standings, and tournament champion coverage.</p>
+            <h3 class="text-xl font-bold text-white mb-2">PGA & LPGA Leaderboards & Tour News</h3>
+            <p class="text-gray-300 text-sm">Real-time scores, standings, and tournament champion coverage.</p>
           </div>
           <a href="https://www.pgatour.com" target="_blank" rel="noopener noreferrer" 
-             class="block text-center bg-golf-green text-white font-bold py-2.5 px-4 rounded-lg hover:bg-green-800 transition">
+             class="block text-center gold-button py-2.5 px-4 rounded-lg transition">
             View Live Scores ↗
           </a>
         </div>
 
-        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex flex-col justify-between space-y-4">
+        <div class="golf-card-bg border border-[#1E4D32] rounded-xl p-6 shadow-md flex flex-col justify-between space-y-4">
           <div>
             <div class="flex justify-between items-center mb-3">
-              <span class="bg-green-100 text-golf-green text-xs font-bold px-2.5 py-1 rounded uppercase tracking-wider">Charity Events</span>
+              <span class="bg-[#1E4D32] gold-text text-xs font-bold px-2.5 py-1 rounded uppercase tracking-wider">Charity Events</span>
               <span class="text-xs text-gray-400 font-semibold">Featured Outings</span>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Charity Golf Outings & Benefit Scrambles</h3>
-            <p class="text-gray-600 text-sm">Find local charity tournaments and benefit matches at nearby courses.</p>
+            <h3 class="text-xl font-bold text-white mb-2">Charity Golf Outings & Benefit Scrambles</h3>
+            <p class="text-gray-300 text-sm">Find local charity tournaments and benefit matches at nearby courses.</p>
           </div>
           <a href="https://golfstatus.com" target="_blank" rel="noopener noreferrer" 
-             class="block text-center bg-golf-green text-white font-bold py-2.5 px-4 rounded-lg hover:bg-green-800 transition">
+             class="block text-center gold-button py-2.5 px-4 rounded-lg transition">
             Find Charity Events ↗
           </a>
         </div>
 
-        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex flex-col justify-between space-y-4">
+        <div class="golf-card-bg border border-[#1E4D32] rounded-xl p-6 shadow-md flex flex-col justify-between space-y-4">
           <div>
             <div class="flex justify-between items-center mb-3">
-              <span class="bg-green-100 text-golf-green text-xs font-bold px-2.5 py-1 rounded uppercase tracking-wider">Instruction</span>
+              <span class="bg-[#1E4D32] gold-text text-xs font-bold px-2.5 py-1 rounded uppercase tracking-wider">Instruction</span>
               <span class="text-xs text-gray-400 font-semibold">Pro Tips</span>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">PGA Coaching & Swing Analysis</h3>
-            <p class="text-gray-600 text-sm">Connect with certified golf professionals for lessons and game improvement.</p>
+            <h3 class="text-xl font-bold text-white mb-2">PGA Coaching & Swing Analysis</h3>
+            <p class="text-gray-300 text-sm">Connect with certified golf professionals for lessons and game improvement.</p>
           </div>
           <a href="https://www.pga.com" target="_blank" rel="noopener noreferrer" 
-             class="block text-center bg-golf-green text-white font-bold py-2.5 px-4 rounded-lg hover:bg-green-800 transition">
+             class="block text-center gold-button py-2.5 px-4 rounded-lg transition">
             Find PGA Lessons ↗
           </a>
         </div>
@@ -353,51 +368,51 @@
   </main>
 
   <!-- Password-Protected Owner Admin Dashboard Modal -->
-  <div id="admin-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50 overflow-y-auto" role="dialog" aria-modal="true">
-    <div class="bg-white p-8 rounded-2xl max-w-4xl w-full space-y-6 shadow-2xl border-4 border-golf-green my-8">
+  <div id="admin-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50 overflow-y-auto" role="dialog" aria-modal="true">
+    <div class="bg-[#0A1F14] p-8 rounded-2xl max-w-4xl w-full space-y-6 shadow-2xl border-2 border-[#D4AF37] my-8 text-white">
       
-      <div class="flex justify-between items-center border-b pb-4">
+      <div class="flex justify-between items-center border-b border-[#1E4D32] pb-4">
         <div>
-          <h3 class="text-3xl font-extrabold text-golf-green">Owner Private Admin Dashboard</h3>
-          <p class="text-gray-600 font-medium">GolfMixer.com Analytics & Access Logs</p>
+          <h3 class="text-3xl font-extrabold gold-gradient-text">Owner Private Admin Dashboard</h3>
+          <p class="text-gray-400 font-medium">GolfMixer.com Analytics & Access Logs</p>
         </div>
-        <button onclick="toggleAdminModal()" class="text-3xl font-bold text-gray-500 hover:text-black">&times;</button>
+        <button onclick="toggleAdminModal()" class="text-3xl font-bold text-gray-400 hover:text-white">&times;</button>
       </div>
 
       <div id="admin-login-step" class="py-4">
-        <p class="text-lg text-gray-700 font-semibold mb-4">Enter owner password to unlock admin portal:</p>
+        <p class="text-lg text-gray-300 font-semibold mb-4">Enter owner password to unlock admin portal:</p>
         <div class="flex gap-4 max-w-md">
-          <input type="password" id="admin-pass" placeholder="Enter Admin Password" class="flex-1 p-3 text-lg border-2 border-gray-300 rounded-lg outline-none focus:border-golf-green">
-          <button onclick="checkAdminPass()" class="bg-golf-green text-white text-lg font-bold px-6 py-3 rounded-lg hover:bg-green-800 transition">
+          <input type="password" id="admin-pass" placeholder="Enter Admin Password" class="flex-1 p-3 text-lg bg-[#122B1D] border border-[#1E4D32] rounded-lg outline-none focus:border-[#D4AF37]">
+          <button onclick="checkAdminPass()" class="gold-button text-lg font-bold px-6 py-3 rounded-lg transition">
             Unlock Panel
           </button>
         </div>
-        <p id="admin-err" class="text-red-600 font-bold text-md mt-3 hidden">⚠️ Incorrect password. Try again.</p>
+        <p id="admin-err" class="text-red-400 font-bold text-md mt-3 hidden">⚠️ Incorrect password. Try again.</p>
       </div>
 
       <div id="admin-panel-step" class="hidden space-y-6">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-green-50 p-4 rounded-xl border border-golf-green gap-2">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-[#122B1D] p-4 rounded-xl border border-[#D4AF37] gap-2">
           <div class="flex items-center space-x-3">
             <span class="text-2xl" aria-hidden="true">✅</span>
-            <span class="text-xl font-bold text-golf-green">Authenticated Site Owner</span>
+            <span class="text-xl font-bold gold-text">Authenticated Site Owner</span>
           </div>
-          <span class="text-sm font-bold bg-golf-green text-white px-3 py-1.5 rounded-md">Live GPS Syncing</span>
+          <span class="text-sm font-bold bg-[#D4AF37] text-black px-3 py-1.5 rounded-md">Live GPS Syncing</span>
         </div>
 
         <div>
-          <h4 class="text-xl font-bold text-gray-900 mb-3">Visitor Logs (Ascending Order)</h4>
-          <div class="overflow-x-auto border-2 border-gray-200 rounded-xl shadow-sm">
+          <h4 class="text-xl font-bold text-white mb-3">Visitor Logs (Ascending Order)</h4>
+          <div class="overflow-x-auto border border-[#1E4D32] rounded-xl shadow-sm">
             <table class="w-full text-left border-collapse">
               <thead>
-                <tr class="bg-golf-green text-white text-lg">
-                  <th class="p-4 border-b font-bold">#</th>
-                  <th class="p-4 border-b font-bold">Timestamp</th>
-                  <th class="p-4 border-b font-bold">GPS / City Location</th>
-                  <th class="p-4 border-b font-bold">IP Address</th>
-                  <th class="p-4 border-b font-bold">Time on Site</th>
+                <tr class="bg-[#122B1D] gold-text text-lg">
+                  <th class="p-4 border-b border-[#1E4D32] font-bold">#</th>
+                  <th class="p-4 border-b border-[#1E4D32] font-bold">Timestamp</th>
+                  <th class="p-4 border-b border-[#1E4D32] font-bold">GPS / City Location</th>
+                  <th class="p-4 border-b border-[#1E4D32] font-bold">IP Address</th>
+                  <th class="p-4 border-b border-[#1E4D32] font-bold">Time on Site</th>
                 </tr>
               </thead>
-              <tbody id="admin-visitor-rows" class="divide-y divide-gray-200 text-lg font-semibold text-gray-900 bg-white">
+              <tbody id="admin-visitor-rows" class="divide-y divide-[#1E4D32] text-lg font-semibold text-gray-200 bg-[#0A1F14]">
                 <!-- Dynamically populated via script -->
               </tbody>
             </table>
@@ -409,23 +424,23 @@
   </div>
 
   <!-- Professional Footer with Disclaimer -->
-  <footer class="bg-golf-green text-white border-t-4 border-golf-gold py-8 px-6 mt-12">
+  <footer class="bg-[#0A1F14] text-white border-t-2 border-[#D4AF37] py-8 px-6 mt-12">
     <div class="max-w-7xl mx-auto space-y-6">
       <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4">
         <div>
-          <p class="text-3xl font-extrabold tracking-tight">Golf<span class="text-golf-gold">Mixer</span>.com</p>
-          <p class="text-yellow-200 text-sm mt-1 uppercase tracking-widest">"The Gold Standard for the Golf Community"</p>
+          <p class="text-3xl font-extrabold tracking-tight">Golf<span class="gold-gradient-text">Mixer</span>.com</p>
+          <p class="gold-text text-sm mt-1 uppercase tracking-widest">"The Gold Standard for the Golf Community"</p>
         </div>
         <div class="flex flex-col items-center md:items-end">
-          <p class="text-sm text-green-200">&copy; 2026 GolfMixer.com. All rights reserved.</p>
-          <button onclick="toggleAdminModal()" class="text-xs text-yellow-300 hover:text-white underline mt-1.5 transition opacity-80 hover:opacity-100">
+          <p class="text-sm text-gray-400">&copy; 2026 GolfMixer.com. All rights reserved.</p>
+          <button onclick="toggleAdminModal()" class="text-xs gold-text hover:underline mt-1.5 transition opacity-80 hover:opacity-100">
             Owner Admin Access
           </button>
         </div>
       </div>
 
-      <div class="border-t border-green-800 pt-4 text-center md:text-left">
-        <p class="text-xs text-green-300 leading-relaxed">
+      <div class="border-t border-[#1E4D32] pt-4 text-center md:text-left">
+        <p class="text-xs text-gray-400 leading-relaxed">
           <strong>Disclaimer:</strong> GolfMixer.com is an independent golf directory and social network. GolfMixer.com is not affiliated, associated, authorized, endorsed by, or in any way officially connected with PGA, PGA TOUR, LPGA, GolfStatus, or any of their subsidiaries or affiliates. All trademarks™ or registered® trademarks belong to their respective holders.
         </p>
       </div>
@@ -592,9 +607,9 @@
 
       if (courses.length === 0) {
         container.innerHTML = `
-          <div class="col-span-full bg-yellow-50 border-2 border-yellow-300 p-8 rounded-xl text-center">
-            <p class="text-2xl font-bold text-yellow-900">No courses matching your criteria were found.</p>
-            <p class="text-yellow-800 mt-2">Try clearing your ZIP code or selecting "All States" to view all courses.</p>
+          <div class="col-span-full golf-card-bg border-2 border-[#D4AF37] p-8 rounded-xl text-center">
+            <p class="text-2xl font-bold text-white">No courses matching your criteria were found.</p>
+            <p class="text-gray-300 mt-2">Try clearing your ZIP code or selecting "All States" to view all courses.</p>
           </div>
         `;
         return;
@@ -602,19 +617,19 @@
 
       courses.forEach(c => {
         const card = document.createElement("div");
-        card.className = "bg-white border-2 border-gray-200 p-6 rounded-xl shadow-sm hover:border-golf-green transition flex flex-col justify-between space-y-4";
+        card.className = "golf-card-bg border-2 border-[#1E4D32] p-6 rounded-xl shadow-md hover:border-[#D4AF37] transition flex flex-col justify-between space-y-4";
         card.innerHTML = `
           <div>
             <div class="flex justify-between items-start mb-2">
-              <span class="bg-green-100 text-golf-green font-extrabold text-xs px-2.5 py-1 rounded uppercase tracking-wider">${c.type}</span>
-              <span class="bg-yellow-100 text-yellow-900 font-extrabold text-xs px-2.5 py-1 rounded-full">${c.rating}</span>
+              <span class="bg-[#1E4D32] gold-text font-extrabold text-xs px-2.5 py-1 rounded uppercase tracking-wider">${c.type}</span>
+              <span class="bg-yellow-900/40 text-yellow-300 font-extrabold text-xs px-2.5 py-1 rounded-full border border-yellow-600/50">${c.rating}</span>
             </div>
-            <h3 class="text-2xl font-extrabold text-golf-green">${c.name}</h3>
-            <p class="text-gray-600 font-semibold mt-1">${c.city}, ${c.state} ${c.zip}</p>
+            <h3 class="text-2xl font-extrabold gold-text">${c.name}</h3>
+            <p class="text-gray-300 font-semibold mt-1">${c.city}, ${c.state} ${c.zip}</p>
           </div>
-          <div class="pt-3 border-t border-gray-100 flex justify-between items-center">
-            <span class="text-sm font-bold text-gray-500">${c.holes} Holes</span>
-            <button onclick="alert('Viewing course profile and clubhouse events for ${c.name}')" class="bg-golf-green text-white font-bold px-4 py-2 rounded-lg text-sm hover:bg-green-800 transition">
+          <div class="pt-3 border-t border-[#1E4D32] flex justify-between items-center">
+            <span class="text-sm font-bold text-gray-400">${c.holes} Holes</span>
+            <button onclick="alert('Viewing course profile and clubhouse events for ${c.name}')" class="gold-button px-4 py-2 rounded-lg text-sm transition">
               View Club Page
             </button>
           </div>
@@ -652,16 +667,16 @@
 
       golferProfiles.forEach(p => {
         const card = document.createElement("div");
-        card.className = "bg-white border-2 border-gray-100 p-5 rounded-xl shadow-sm hover:border-golf-gold transition flex space-x-4 items-center";
+        card.className = "golf-card-bg border-2 border-[#1E4D32] p-5 rounded-xl shadow-md hover:border-[#D4AF37] transition flex space-x-4 items-center";
         card.innerHTML = `
-          <img src="${p.photo}" alt="${p.name}" class="w-20 h-20 rounded-full object-cover border-2 border-golf-gold flex-shrink-0">
+          <img src="${p.photo}" alt="${p.name}" class="w-20 h-20 rounded-full object-cover border-2 border-[#D4AF37] flex-shrink-0">
           <div class="space-y-1">
             <div class="flex items-center space-x-2">
-              <h4 class="text-xl font-bold text-golf-green">${p.name}</h4>
-              <span class="bg-yellow-100 text-yellow-900 text-xs font-bold px-2 py-0.5 rounded">${p.handicap}</span>
+              <h4 class="text-xl font-bold gold-text">${p.name}</h4>
+              <span class="bg-[#1E4D32] text-yellow-300 text-xs font-bold px-2 py-0.5 rounded">${p.handicap}</span>
             </div>
-            <p class="text-xs font-bold text-gray-500">${p.course} &bull; ${p.location}</p>
-            <p class="text-sm text-gray-600 line-clamp-2">${p.bio}</p>
+            <p class="text-xs font-bold text-gray-400">${p.course} &bull; ${p.location}</p>
+            <p class="text-sm text-gray-300 line-clamp-2">${p.bio}</p>
           </div>
         `;
         container.appendChild(card);
@@ -688,19 +703,19 @@
 
       socialPosts.forEach(post => {
         const card = document.createElement("div");
-        card.className = "bg-white border-2 border-gray-100 p-6 rounded-xl shadow-sm hover:border-golf-green transition space-y-3";
+        card.className = "golf-card-bg border-2 border-[#1E4D32] p-6 rounded-xl shadow-md hover:border-[#D4AF37] transition space-y-3";
         card.innerHTML = `
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b pb-3">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-[#1E4D32] pb-3">
             <div>
-              <span class="bg-yellow-100 text-yellow-900 font-extrabold text-xs px-2.5 py-1 rounded uppercase tracking-wider">${post.activity}</span>
-              <h4 class="text-xl font-bold text-golf-green mt-1">${post.club}</h4>
+              <span class="bg-[#1E4D32] gold-text font-extrabold text-xs px-2.5 py-1 rounded uppercase tracking-wider">${post.activity}</span>
+              <h4 class="text-xl font-bold gold-text mt-1">${post.club}</h4>
             </div>
             <span class="text-xs font-semibold text-gray-400">${post.time}</span>
           </div>
-          <p class="text-gray-700 text-base">${post.desc}</p>
+          <p class="text-gray-200 text-base">${post.desc}</p>
           <div class="flex justify-between items-center pt-2 text-sm">
-            <span class="text-gray-500">Hosted by <strong class="text-gray-800">${post.author}</strong></span>
-            <button onclick="alert('RSVP confirmed! See you at the clubhouse.')" class="bg-golf-gold text-black font-bold px-4 py-2 rounded-lg hover:bg-yellow-500 transition">
+            <span class="text-gray-400">Hosted by <strong class="text-white">${post.author}</strong></span>
+            <button onclick="alert('RSVP confirmed! See you at the clubhouse.')" class="gold-button px-4 py-2 rounded-lg transition">
               RSVP / Join Social
             </button>
           </div>
@@ -728,17 +743,17 @@
 
       golfMixers.forEach(m => {
         const card = document.createElement("div");
-        card.className = "bg-white border-2 border-gray-100 p-5 rounded-xl shadow-sm hover:border-golf-green transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4";
+        card.className = "golf-card-bg border-2 border-[#1E4D32] p-5 rounded-xl shadow-md hover:border-[#D4AF37] transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4";
         card.innerHTML = `
           <div>
             <div class="flex items-center space-x-2">
-              <span class="font-bold text-xl text-golf-green">${m.type}</span>
-              <span class="text-xs bg-green-100 text-green-800 font-bold px-2 py-0.5 rounded">${m.spots}</span>
+              <span class="font-bold text-xl gold-text">${m.type}</span>
+              <span class="text-xs bg-[#1E4D32] text-green-300 font-bold px-2 py-0.5 rounded">${m.spots}</span>
             </div>
-            <p class="text-gray-800 font-semibold mt-1">${m.course}</p>
-            <p class="text-sm text-gray-500">Hosted by <strong class="text-gray-700">${m.host}</strong> &bull; ${m.date}</p>
+            <p class="text-gray-200 font-semibold mt-1">${m.course}</p>
+            <p class="text-sm text-gray-400">Hosted by <strong class="text-gray-200">${m.host}</strong> &bull; ${m.date}</p>
           </div>
-          <button onclick="alert('Interest registered! The host will contact you.')" class="bg-golf-green text-white font-bold px-5 py-2.5 rounded-lg text-sm hover:bg-green-800 transition">
+          <button onclick="alert('Interest registered! The host will contact you.')" class="gold-button px-5 py-2.5 rounded-lg text-sm transition">
             Join Group
           </button>
         `;
@@ -771,13 +786,13 @@
 
       mockLogins.forEach(log => {
         const row = document.createElement("tr");
-        row.className = "hover:bg-gray-50 border-b";
+        row.className = "hover:bg-[#122B1D] border-b border-[#1E4D32]";
         row.innerHTML = `
-          <td class="p-4 font-bold text-gray-500">${log.id}</td>
+          <td class="p-4 font-bold text-gray-400">${log.id}</td>
           <td class="p-4">${log.time}</td>
-          <td class="p-4 font-bold text-golf-green">${log.location}</td>
+          <td class="p-4 font-bold gold-text">${log.location}</td>
           <td class="p-4 font-mono text-sm">${log.ip}</td>
-          <td class="p-4 text-green-700 font-bold" id="session-timer-${log.id}">0m 0s</td>
+          <td class="p-4 text-green-400 font-bold" id="session-timer-${log.id}">0m 0s</td>
         `;
         tbody.appendChild(row);
       });
