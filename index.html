@@ -25,9 +25,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .gold-border {
-      border-color: var(--golf-gold);
-    }
     .gold-button {
       background: linear-gradient(135deg, #D4AF37 0%, #B38728 100%);
       color: #000000;
@@ -169,7 +166,7 @@
     <section id="profiles" class="space-y-6">
       <div class="border-b-2 border-[#D4AF37] pb-3">
         <h2 class="text-3xl md:text-4xl font-extrabold gold-gradient-text">Golfer Profiles & Directory</h2>
-        <p class="text-lg text-gray-300 mt-1">Create your profile, upload your photo, and list your home course.</p>
+        <p class="text-lg text-gray-300 mt-1">Create your profile, upload your photo, and connect to mixers.</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -202,7 +199,7 @@
               <textarea id="prof-bio" rows="2" placeholder="Tell other members about your game..." class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none"></textarea>
             </div>
             <button type="submit" class="w-full gold-button py-3 rounded-lg transition">
-              Publish Profile
+              Publish Profile & Activate Session
             </button>
           </form>
         </div>
@@ -441,7 +438,7 @@
 
       <div class="border-t border-[#1E4D32] pt-4 text-center md:text-left">
         <p class="text-xs text-gray-400 leading-relaxed">
-          <strong>Disclaimer:</strong> GolfMixer.com is an independent golf directory and social network. GolfMixer.com is not affiliated, associated, authorized, endorsed by, or in any way officially connected with PGA, PGA TOUR, LPGA, GolfStatus, or any of their subsidiaries or affiliates. All trademarks™ or registered® trademarks belong to their respective holders.
+          <strong>Disclaimer:</strong> GolfMixer.com is an independent golf directory and social network. GolfMixer.com is not affiliated, associated, authorized, endorsed by, or in any way officially connected with PGA, PGA TOUR, LPGA, GolfStatus, or any of their subsidiaries or affiliates. All trademarks™ or registered® trademarks belong to their respective holders. Links to third-party golf course websites are provided solely for user reference.
         </p>
       </div>
     </div>
@@ -449,17 +446,20 @@
 
   <!-- Application Logic -->
   <script>
-    // National Database of Golf Courses & Country Clubs
+    // National Database of Golf Courses with Verified Home Page URLs
     const courseDatabase = [
-      { name: "Golden Horseshoe Golf Club", state: "VA", zip: "23185", city: "Williamsburg", type: "Championship Course", holes: 18, rating: "4.9 ★", lat: 37.2707, lon: -76.7075 },
-      { name: "Kingsmill Resort Golf Club", state: "VA", zip: "23185", city: "Williamsburg", type: "Resort & Country Club", holes: 36, rating: "4.8 ★", lat: 37.2305, lon: -76.6631 },
-      { name: "Williamsburg National Golf Club", state: "VA", zip: "23188", city: "Williamsburg", type: "Golf & Country Club", holes: 36, rating: "4.7 ★", lat: 37.3100, lon: -76.7600 },
-      { name: "TPC Sawgrass", state: "FL", zip: "32082", city: "Ponte Vedra Beach", type: "PGA Tour Resort", holes: 18, rating: "5.0 ★", lat: 30.1975, lon: -81.3931 },
-      { name: "Brandon Golf & Country Club", state: "FL", zip: "33511", city: "Brandon", type: "Country Club", holes: 18, rating: "4.6 ★", lat: 27.9378, lon: -82.2859 },
-      { name: "Pebble Beach Golf Links", state: "CA", zip: "93953", city: "Pebble Beach", type: "Resort & Golf Club", holes: 18, rating: "5.0 ★", lat: 36.5688, lon: -121.9506 },
-      { name: "Pinehurst No. 2", state: "NC", zip: "28374", city: "Pinehurst", type: "Country Club Resort", holes: 18, rating: "4.9 ★", lat: 35.1896, lon: -79.4684 },
-      { name: "Ocean Course at Kiawah Island", state: "SC", zip: "29455", city: "Kiawah Island", type: "Golf & Resort Club", holes: 18, rating: "4.8 ★", lat: 32.6108, lon: -80.0345 }
+      { name: "Golden Horseshoe Golf Club", state: "VA", zip: "23185", city: "Williamsburg", type: "Championship Course", holes: 18, rating: "4.9 ★", lat: 37.2707, lon: -76.7075, url: "https://www.colonialwilliamsburgresorts.com/golf/" },
+      { name: "Kingsmill Resort Golf Club", state: "VA", zip: "23185", city: "Williamsburg", type: "Resort & Country Club", holes: 36, rating: "4.8 ★", lat: 37.2305, lon: -76.6631, url: "https://www.kingsmill.com/golf/" },
+      { name: "Williamsburg National Golf Club", state: "VA", zip: "23188", city: "Williamsburg", type: "Golf & Country Club", holes: 36, rating: "4.7 ★", lat: 37.3100, lon: -76.7600, url: "https://williamsburgnationalgolfclub.com/" },
+      { name: "TPC Sawgrass", state: "FL", zip: "32082", city: "Ponte Vedra Beach", type: "PGA Tour Resort", holes: 18, rating: "5.0 ★", lat: 30.1975, lon: -81.3931, url: "https://tpc.com/sawgrass/" },
+      { name: "Brandon Golf & Country Club", state: "FL", zip: "33511", city: "Brandon", type: "Country Club", holes: 18, rating: "4.6 ★", lat: 27.9378, lon: -82.2859, url: "https://www.google.com/search?q=Brandon+Golf+and+Country+Club+Florida" },
+      { name: "Pebble Beach Golf Links", state: "CA", zip: "93953", city: "Pebble Beach", type: "Resort & Golf Club", holes: 18, rating: "5.0 ★", lat: 36.5688, lon: -121.9506, url: "https://www.pebblebeach.com/golf/pebble-beach-golf-links/" },
+      { name: "Pinehurst No. 2", state: "NC", zip: "28374", city: "Pinehurst", type: "Country Club Resort", holes: 18, rating: "4.9 ★", lat: 35.1896, lon: -79.4684, url: "https://www.pinehurst.com/golf/courses/no-2/" },
+      { name: "Ocean Course at Kiawah Island", state: "SC", zip: "29455", city: "Kiawah Island", type: "Golf & Resort Club", holes: 18, rating: "4.8 ★", lat: 32.6108, lon: -80.0345, url: "https://kiawahresort.com/golf/the-ocean-course/" }
     ];
+
+    // Track active user profile after creation
+    let activeUserProfile = null;
 
     // Seed Data Sets
     let golferProfiles = [
@@ -483,24 +483,28 @@
 
     let socialPosts = [
       {
+        id: 101,
         author: "Dave Albert",
         club: "Kingsmill Resort Clubhouse",
         activity: "Post-Round Drinks & Cocktail Hour",
         time: "Today at 5:30 PM",
-        desc: "Finished 18 holes! Joining everyone on the patio for drinks and socializing."
+        desc: "Finished 18 holes! Joining everyone on the patio for drinks and socializing.",
+        attendees: ["Dave Albert", "Ralph Hughes"]
       },
       {
+        id: 102,
         author: "Piero Barbagallo",
         club: "Golden Horseshoe Patio",
         activity: "Clubhouse Dinner & Patio Social",
         time: "Saturday at 6:30 PM",
-        desc: "Hosting a group dinner at the main clubhouse. All GolfMixer members welcome!"
+        desc: "Hosting a group dinner at the main clubhouse. All GolfMixer members welcome!",
+        attendees: ["Piero Barbagallo"]
       }
     ];
 
     let golfMixers = [
-      { host: "Ralph H.", course: "Golden Horseshoe Golf Club", type: "Weekend Scramble", date: "Saturday, 9:00 AM", spots: "2 spots left" },
-      { host: "Mike S.", course: "Kingsmill Golf Club", type: "Casual 4-Some Match", date: "Sunday, 1:30 PM", spots: "1 spot left" }
+      { id: 201, host: "Ralph H.", course: "Golden Horseshoe Golf Club", type: "Weekend Scramble", date: "Saturday, 9:00 AM", totalSpots: 4, attendees: ["Ralph H.", "Robert K."] },
+      { id: 202, host: "Mike S.", course: "Kingsmill Golf Club", type: "Casual 4-Some Match", date: "Sunday, 1:30 PM", totalSpots: 4, attendees: ["Mike S."] }
     ];
 
     let visitorSessionStart = Date.now();
@@ -629,9 +633,9 @@
           </div>
           <div class="pt-3 border-t border-[#1E4D32] flex justify-between items-center">
             <span class="text-sm font-bold text-gray-400">${c.holes} Holes</span>
-            <button onclick="alert('Viewing course profile and clubhouse events for ${c.name}')" class="gold-button px-4 py-2 rounded-lg text-sm transition">
-              View Club Page
-            </button>
+            <a href="${c.url}" target="_blank" rel="noopener noreferrer" class="gold-button px-4 py-2 rounded-lg text-sm transition inline-flex items-center gap-1">
+              Visit Official Site ↗
+            </a>
           </div>
         `;
         container.appendChild(card);
@@ -654,11 +658,18 @@
         photoUrl = URL.createObjectURL(fileInput.files[0]);
       }
 
-      golferProfiles.unshift({ name, handicap, course, location, bio, photo: photoUrl });
+      const newProfile = { name, handicap, course, location, bio, photo: photoUrl };
+      activeUserProfile = newProfile; // Set active session profile
+      golferProfiles.unshift(newProfile);
+
+      // Auto-fill author fields in social & mixer forms
+      document.getElementById("social-author").value = name;
+      document.getElementById("host-name").value = name;
+
       renderProfiles();
       document.getElementById("profile-form").reset();
       document.getElementById("profile-count").innerText = `${golferProfiles.length + 122} Profiles`;
-      alert("Your Golfer Profile has been published successfully!");
+      alert(`Welcome ${name}! Your profile is published and active. You can now join any Mixer or 19th Hole Social!`);
     }
 
     function renderProfiles() {
@@ -683,6 +694,46 @@
       });
     }
 
+    // Group & Mixer Joining Handler
+    function joinMixer(mixerId) {
+      const mixer = golfMixers.find(m => m.id === mixerId);
+      if (!mixer) return;
+
+      const userName = activeUserProfile ? activeUserProfile.name : prompt("Please enter your name to join this Golf Mixer group:");
+      if (!userName) return;
+
+      if (mixer.attendees.includes(userName)) {
+        alert(`You (${userName}) are already registered for this Golf Mixer!`);
+        return;
+      }
+
+      if (mixer.attendees.length >= mixer.totalSpots) {
+        alert("This Golf Mixer group is currently full!");
+        return;
+      }
+
+      mixer.attendees.push(userName);
+      renderMixers();
+      alert(`Success! ${userName} has been added to the Golf Mixer at ${mixer.course}.`);
+    }
+
+    function joinSocial(postId) {
+      const post = socialPosts.find(p => p.id === postId);
+      if (!post) return;
+
+      const userName = activeUserProfile ? activeUserProfile.name : prompt("Please enter your name to RSVP for this clubhouse social:");
+      if (!userName) return;
+
+      if (post.attendees.includes(userName)) {
+        alert(`You (${userName}) have already RSVP'd for this event!`);
+        return;
+      }
+
+      post.attendees.push(userName);
+      renderSocialFeed();
+      alert(`RSVP Confirmed! ${userName} is attending the clubhouse social at ${post.club}.`);
+    }
+
     // 19th Hole Clubhouse Social Logic
     function createSocialPost(event) {
       event.preventDefault();
@@ -691,7 +742,15 @@
       const activity = document.getElementById("social-activity").value;
       const desc = document.getElementById("social-desc").value;
 
-      socialPosts.unshift({ author, club, activity, time: "Just Now", desc });
+      socialPosts.unshift({ 
+        id: Date.now(), 
+        author, 
+        club, 
+        activity, 
+        time: "Just Now", 
+        desc, 
+        attendees: [author] 
+      });
       renderSocialFeed();
       document.getElementById("social-form").reset();
       alert("Social event posted to The 19th Hole Clubhouse Lounge!");
@@ -713,9 +772,12 @@
             <span class="text-xs font-semibold text-gray-400">${post.time}</span>
           </div>
           <p class="text-gray-200 text-base">${post.desc}</p>
+          <div class="text-xs text-gray-400 font-medium">
+            <strong>Attending Members (${post.attendees.length}):</strong> ${post.attendees.join(", ")}
+          </div>
           <div class="flex justify-between items-center pt-2 text-sm">
             <span class="text-gray-400">Hosted by <strong class="text-white">${post.author}</strong></span>
-            <button onclick="alert('RSVP confirmed! See you at the clubhouse.')" class="gold-button px-4 py-2 rounded-lg transition">
+            <button onclick="joinSocial(${post.id})" class="gold-button px-4 py-2 rounded-lg transition">
               RSVP / Join Social
             </button>
           </div>
@@ -731,7 +793,15 @@
       const course = document.getElementById("mixer-course").value;
       const type = document.getElementById("mixer-type").value;
 
-      golfMixers.unshift({ host, course, type, date: "Just Now", spots: "3 spots left" });
+      golfMixers.unshift({ 
+        id: Date.now(), 
+        host, 
+        course, 
+        type, 
+        date: "Just Now", 
+        totalSpots: 4, 
+        attendees: [host] 
+      });
       renderMixers();
       document.getElementById("mixer-form").reset();
       alert("Golf mixer published successfully!");
@@ -742,18 +812,22 @@
       container.innerHTML = "";
 
       golfMixers.forEach(m => {
+        const spotsLeft = m.totalSpots - m.attendees.length;
+        const spotsText = spotsLeft > 0 ? `${spotsLeft} spot(s) left` : "FULL";
+
         const card = document.createElement("div");
         card.className = "golf-card-bg border-2 border-[#1E4D32] p-5 rounded-xl shadow-md hover:border-[#D4AF37] transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4";
         card.innerHTML = `
           <div>
             <div class="flex items-center space-x-2">
               <span class="font-bold text-xl gold-text">${m.type}</span>
-              <span class="text-xs bg-[#1E4D32] text-green-300 font-bold px-2 py-0.5 rounded">${m.spots}</span>
+              <span class="text-xs bg-[#1E4D32] ${spotsLeft > 0 ? 'text-green-300' : 'text-red-400'} font-bold px-2 py-0.5 rounded">${spotsText}</span>
             </div>
             <p class="text-gray-200 font-semibold mt-1">${m.course}</p>
             <p class="text-sm text-gray-400">Hosted by <strong class="text-gray-200">${m.host}</strong> &bull; ${m.date}</p>
+            <p class="text-xs text-gray-400 mt-1"><strong>Group Players:</strong> ${m.attendees.join(", ")}</p>
           </div>
-          <button onclick="alert('Interest registered! The host will contact you.')" class="gold-button px-5 py-2.5 rounded-lg text-sm transition">
+          <button onclick="joinMixer(${m.id})" class="gold-button px-5 py-2.5 rounded-lg text-sm transition">
             Join Group
           </button>
         `;
