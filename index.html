@@ -1,893 +1,3563 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GolfMixer.com - The Gold Standard for the Golf Community</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    :root {
-      --golf-gold: #D4AF37;
-      --golf-dark: #0A1F14;
-      --golf-card: #122B1D;
-      --golf-accent: #1E4D32;
-    }
-    body {
-      background-color: #06120B;
-      color: #F3F4F6;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
-    .gold-text {
-      color: var(--golf-gold);
-    }
-    .gold-gradient-text {
-      background: linear-gradient(135deg, #FFF099 0%, #D4AF37 50%, #AA771C 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .gold-button {
-      background: linear-gradient(135deg, #D4AF37 0%, #B38728 100%);
-      color: #000000;
-      font-weight: 800;
-    }
-    .gold-button:hover {
-      background: linear-gradient(135deg, #F4E8C1 0%, #D4AF37 100%);
-    }
-    .golf-card-bg {
-      background-color: var(--golf-card);
-    }
-    .hero-pattern {
-      background-color: #06120B;
-      background-image: radial-gradient(#1E4D32 0.75px, transparent 0.75px), radial-gradient(#1E4D32 0.75px, #06120B 0.75px);
-      background-size: 30px 30px;
-      background-position: 0 0, 15px 15px;
-    }
-    .tracking-large-text {
-      font-size: 1.5rem;
-      line-height: 2.25rem;
-      letter-spacing: 0.05em;
-      font-weight: 700;
-    }
-    @media (min-width: 768px) {
-      .tracking-large-text {
-        font-size: 2rem;
-        line-height: 2.75rem;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GolfMixer.com — The Gold Standard for the Golf Community</title>
+
+<meta name="description" content="GolfMixer.com connects golfers with golf courses, mixers, groups, clubhouse socials, golfer profiles and golf resources.">
+<meta name="theme-color" content="#0A1F14">
+
+<!-- Replace YOURCODE with your GoatCounter site code.
+     This is intentionally invisible to visitors. -->
+<script data-goatcounter="https://YOURCODE.goatcounter.com/count"
+        async
+        src="https://gc.zgo.at/count.v5.js"
+        crossorigin="anonymous"
+        integrity="sha384-atnOLvQ9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+:root{
+  --golf-gold:#D4AF37;
+  --golf-dark:#0A1F14;
+  --golf-card:#122B1D;
+  --golf-accent:#1E4D32;
+  --golf-bg:#06120B;
+  --golf-text:#F3F4F6;
+  --golf-muted:#AAB8AE;
+  --danger:#dc2626;
+  --success:#22c55e;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:var(--golf-bg);
+  color:var(--golf-text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  text-decoration:none;
+}
+
+.gold-text{
+  color:var(--golf-gold);
+}
+
+.gold-gradient-text{
+  background:linear-gradient(
+    135deg,
+    #FFF099 0%,
+    #D4AF37 50%,
+    #AA771C 100%
+  );
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.gold-button{
+  background:linear-gradient(
+    135deg,
+    #D4AF37 0%,
+    #B38728 100%
+  );
+  color:#000;
+  font-weight:800;
+  border:0;
+}
+
+.gold-button:hover{
+  background:linear-gradient(
+    135deg,
+    #F4E8C1 0%,
+    #D4AF37 100%
+  );
+}
+
+.golf-card-bg{
+  background:var(--golf-card);
+}
+
+.hero-pattern{
+  background-color:var(--golf-bg);
+  background-image:
+    radial-gradient(#1E4D32 .75px,transparent .75px),
+    radial-gradient(#1E4D32 .75px,var(--golf-bg) .75px);
+  background-size:30px 30px;
+  background-position:0 0,15px 15px;
+}
+
+.tracking-large-text{
+  font-size:1.5rem;
+  line-height:2.25rem;
+  letter-spacing:.05em;
+  font-weight:700;
+}
+
+.mobile-menu{
+  display:none;
+}
+
+.mobile-menu.open{
+  display:block;
+}
+
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:1000;
+  max-width:380px;
+  background:#122B1D;
+  color:#fff;
+  border:2px solid var(--golf-gold);
+  border-radius:12px;
+  padding:14px 18px;
+  box-shadow:0 15px 40px rgba(0,0,0,.4);
+  transform:translateY(120px);
+  opacity:0;
+  transition:.25s ease;
+  pointer-events:none;
+}
+
+.toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:900;
+  background:rgba(0,0,0,.82);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  overflow-y:auto;
+}
+
+.modal.open{
+  display:flex;
+}
+
+.modal-card{
+  width:min(850px,100%);
+  max-height:90vh;
+  overflow-y:auto;
+  background:#0A1F14;
+  border:2px solid var(--golf-gold);
+  border-radius:18px;
+  padding:28px;
+  box-shadow:0 30px 80px rgba(0,0,0,.6);
+}
+
+.modal-card h2{
+  margin-top:0;
+}
+
+.modal-card p,
+.modal-card li{
+  color:#d1d5db;
+  line-height:1.65;
+}
+
+.close-modal{
+  float:right;
+  border:0;
+  background:transparent;
+  color:#aaa;
+  font-size:30px;
+}
+
+.empty-state{
+  border:2px dashed #1E4D32;
+  background:#0A1F14;
+  padding:30px;
+  border-radius:14px;
+  text-align:center;
+  color:#9ca3af;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  padding:5px 9px;
+  border-radius:999px;
+  background:#1E4D32;
+  color:#D4AF37;
+  font-size:11px;
+  font-weight:800;
+}
+
+.status-badge{
+  padding:5px 9px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.status-open{
+  background:#14532d;
+  color:#86efac;
+}
+
+.status-full{
+  background:#7f1d1d;
+  color:#fecaca;
+}
+
+@media(min-width:768px){
+  .tracking-large-text{
+    font-size:2rem;
+    line-height:2.75rem;
+  }
+}
+
+@media(max-width:767px){
+
+  .desktop-nav{
+    display:none !important;
+  }
+
+  .mobile-menu{
+    border-top:1px solid #1E4D32;
+    padding:12px 20px 20px;
+  }
+
+  .mobile-menu a{
+    display:block;
+    padding:11px 5px;
+    color:#fff;
+    font-weight:700;
+  }
+
+  .mobile-menu a:hover{
+    color:#D4AF37;
+  }
+
+  .mobile-toggle{
+    display:block !important;
+  }
+}
+
+@media(min-width:768px){
+  .mobile-toggle{
+    display:none !important;
+  }
+}
+</style>
 </head>
 
-<body class="min-h-screen flex flex-col justify-between hero-pattern">
+<body class="min-h-screen hero-pattern">
 
-  <!-- Main Professional Dark/Gold Header -->
-  <header class="bg-[#0A1F14] text-white shadow-2xl border-b-2 border-[#D4AF37]">
-    <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
-      <div class="flex items-center space-x-4 text-center md:text-left">
-        <span class="text-4xl" aria-hidden="true">⛳</span>
+<!-- HEADER -->
+<header class="bg-[#0A1F14] text-white shadow-2xl border-b-2 border-[#D4AF37] sticky top-0 z-50">
+
+  <div class="max-w-7xl mx-auto px-5 py-5 flex items-center justify-between gap-5">
+
+    <a href="#" class="flex items-center gap-3" aria-label="GolfMixer.com home">
+
+      <span class="text-4xl" aria-hidden="true">⛳</span>
+
+      <div>
+        <div class="text-3xl md:text-5xl font-extrabold tracking-tight">
+          Golf<span class="gold-gradient-text">Mixer</span>.com
+        </div>
+
+        <div class="text-xs md:text-sm font-semibold tracking-widest uppercase text-[#D4AF37] mt-1">
+          The Gold Standard for the Golf Community
+        </div>
+      </div>
+
+    </a>
+
+    <nav class="desktop-nav flex flex-wrap items-center justify-center gap-3 md:gap-5 text-sm md:text-base font-bold"
+         aria-label="Main Navigation">
+
+      <a href="#directory" class="hover:text-[#D4AF37] py-2 px-2">Courses</a>
+      <a href="#mixers" class="hover:text-[#D4AF37] py-2 px-2">Mixers</a>
+      <a href="#clubhouse" class="hover:text-[#D4AF37] py-2 px-2">19th Hole</a>
+      <a href="#profiles" class="hover:text-[#D4AF37] py-2 px-2">Profiles</a>
+      <a href="#news" class="hover:text-[#D4AF37] py-2 px-2">Golf News</a>
+
+    </nav>
+
+    <button
+      class="mobile-toggle hidden border border-[#D4AF37] rounded-lg px-3 py-2 text-[#D4AF37]"
+      onclick="toggleMobileMenu()"
+      aria-label="Open navigation menu">
+      ☰
+    </button>
+
+  </div>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <a href="#directory" onclick="closeMobileMenu()">Course Finder</a>
+    <a href="#mixers" onclick="closeMobileMenu()">Golf Mixers</a>
+    <a href="#clubhouse" onclick="closeMobileMenu()">19th Hole</a>
+    <a href="#profiles" onclick="closeMobileMenu()">Golfer Profiles</a>
+    <a href="#news" onclick="closeMobileMenu()">Golf News</a>
+  </div>
+
+</header>
+
+
+<!-- ACTIVITY / SITE INFO -->
+<section class="bg-[#0D2619] border-b border-[#1E4D32] py-5 px-5">
+
+  <div class="max-w-7xl mx-auto">
+
+    <div class="flex items-center gap-3 mb-3">
+      <span class="relative flex h-3 w-3">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-[#D4AF37]"></span>
+      </span>
+
+      <h2 class="text-lg md:text-xl font-bold uppercase tracking-wider text-[#D4AF37]">
+        GolfMixer Clubhouse
+      </h2>
+    </div>
+
+    <div class="bg-[#0A1F14] border-2 border-[#D4AF37] rounded-xl p-5 shadow-lg">
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
         <div>
-          <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight">
-            Golf<span class="gold-gradient-text">Mixer</span>.com
-          </h1>
-          <p class="text-sm md:text-base font-semibold tracking-widest uppercase text-[#D4AF37] mt-1">
-            "The Gold Standard for the Golf Community"
+          <p class="text-xs uppercase font-bold text-gray-400 tracking-wider">
+            Golf Courses
+          </p>
+
+          <p id="course-count" class="tracking-large-text text-white">
+            0
           </p>
         </div>
-      </div>
-      <nav class="flex flex-wrap items-center justify-center space-x-4 md:space-x-6 text-base md:text-lg font-bold" aria-label="Main Navigation">
-        <a href="#directory" class="hover:text-[#D4AF37] transition py-1 px-2">Course Finder</a>
-        <a href="#mixers" class="hover:text-[#D4AF37] transition py-1 px-2">Mixers & Teams</a>
-        <a href="#clubhouse" class="hover:text-[#D4AF37] transition py-1 px-2">19th Hole Social</a>
-        <a href="#profiles" class="hover:text-[#D4AF37] transition py-1 px-2">Golfer Profiles</a>
-        <a href="#news" class="hover:text-[#D4AF37] transition py-1 px-2">Golf News</a>
-      </nav>
-    </div>
-  </header>
 
-  <!-- Real-Time Activity Bar -->
-  <section class="bg-[#0D2619] border-b border-[#1E4D32] py-6 px-6">
-    <div class="max-w-7xl mx-auto">
-      <div class="flex items-center space-x-3 mb-3">
-        <span class="relative flex h-4 w-4">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-4 w-4 bg-[#D4AF37]"></span>
-        </span>
-        <h2 class="text-xl font-bold uppercase tracking-wider text-[#D4AF37]">Live Clubhouse & Visitor Activity</h2>
-      </div>
-
-      <div class="bg-[#0A1F14] border-2 border-[#D4AF37] rounded-xl p-5 shadow-lg">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 border-b border-[#1E4D32] pb-4">
-          <div>
-            <p class="text-xs uppercase font-bold text-gray-400 tracking-wider">Today's Total Visitors</p>
-            <p id="daily-count" class="tracking-large-text text-white">1,482 Visitors</p>
-          </div>
-          <div>
-            <p class="text-xs uppercase font-bold text-gray-400 tracking-wider">Golfers Active Online</p>
-            <p id="live-online" class="tracking-large-text text-green-400">38 Online</p>
-          </div>
-          <div>
-            <p class="text-xs uppercase font-bold text-gray-400 tracking-wider">Registered Golfer Profiles</p>
-            <p id="profile-count" class="tracking-large-text gold-text">124 Profiles</p>
-          </div>
-        </div>
-
-        <div class="pt-3">
-          <p class="text-xs uppercase font-bold text-gray-400 tracking-wider mb-1">Your Real-Time GPS Location Log</p>
-          <div class="text-lg md:text-xl font-bold text-white bg-[#122B1D] p-3 rounded-lg border border-[#1E4D32] flex flex-wrap items-center">
-            <span id="visitor-city" class="gold-text">Detecting Location...</span>,&nbsp;
-            <span id="visitor-state" class="gold-text">State</span>
-            <span class="mx-3 text-gray-500">|</span> 
-            <span id="visitor-time" class="text-white">--:--:-- PM</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Main Body Content -->
-  <main class="max-w-7xl mx-auto px-6 py-10 space-y-16 flex-grow">
-
-    <!-- GPS & ZIP Code Course Directory -->
-    <section id="directory" class="space-y-6">
-      <div class="border-b-2 border-[#D4AF37] pb-3 flex flex-col md:flex-row justify-between items-start md:items-end gap-2">
         <div>
-          <h2 class="text-3xl md:text-4xl font-extrabold gold-gradient-text">Top Golf Courses & Country Clubs</h2>
-          <p class="text-lg text-gray-300 mt-1">Locate top golf facilities by GPS or enter any US ZIP code.</p>
+          <p class="text-xs uppercase font-bold text-gray-400 tracking-wider">
+            Golf Mixers
+          </p>
+
+          <p id="mixer-count" class="tracking-large-text text-green-400">
+            0
+          </p>
         </div>
-        <button onclick="useGPSLocation()" class="gold-button px-4 py-2 rounded-lg transition shadow-md flex items-center gap-2">
-          <span>📍</span> Use My Current GPS Location
+
+        <div>
+          <p class="text-xs uppercase font-bold text-gray-400 tracking-wider">
+            Local Profiles
+          </p>
+
+          <p id="profile-count" class="tracking-large-text gold-text">
+            0
+          </p>
+        </div>
+
+      </div>
+
+      <div class="mt-5 pt-4 border-t border-[#1E4D32]">
+
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+
+          <div>
+            <p class="text-xs uppercase font-bold text-gray-400 tracking-wider">
+              Your Location
+            </p>
+
+            <p id="visitor-location" class="font-bold text-white">
+              Location is only accessed when you request GPS search.
+            </p>
+          </div>
+
+          <button
+            onclick="useGPSLocation()"
+            class="gold-button px-5 py-2.5 rounded-lg shadow-md">
+            📍 Find Courses Near Me
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<main class="max-w-7xl mx-auto px-5 py-10 space-y-16">
+
+
+<!-- COURSE DIRECTORY -->
+<section id="directory" class="space-y-6">
+
+  <div class="border-b-2 border-[#D4AF37] pb-3 flex flex-col md:flex-row justify-between items-start md:items-end gap-3">
+
+    <div>
+      <h2 class="text-3xl md:text-4xl font-extrabold gold-gradient-text">
+        Top Golf Courses & Country Clubs
+      </h2>
+
+      <p class="text-lg text-gray-300 mt-1">
+        Search by ZIP, state, course name, or use your current location.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div class="golf-card-bg p-5 rounded-xl border-2 border-[#1E4D32] shadow-xl">
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+
+      <input
+        type="text"
+        id="course-search"
+        placeholder="Course name or city"
+        class="px-4 py-3 text-lg bg-[#0A1F14] text-white border-2 border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none"
+        oninput="searchCourses()">
+
+      <input
+        type="text"
+        id="zip-input"
+        maxlength="5"
+        inputmode="numeric"
+        placeholder="5-Digit ZIP Code"
+        class="px-4 py-3 text-lg bg-[#0A1F14] text-white border-2 border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none"
+        oninput="searchCourses()">
+
+      <select
+        id="state-input"
+        onchange="searchCourses()"
+        class="px-4 py-3 text-lg bg-[#0A1F14] text-white border-2 border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
+
+        <option value="">All States</option>
+        <option value="VA">Virginia</option>
+        <option value="FL">Florida</option>
+        <option value="CA">California</option>
+        <option value="NC">North Carolina</option>
+        <option value="SC">South Carolina</option>
+
+      </select>
+
+      <button
+        onclick="resetCourseSearch()"
+        class="gold-button text-lg px-6 py-3 rounded-lg">
+        Reset Search
+      </button>
+
+    </div>
+
+    <div class="mt-4 flex flex-wrap gap-3">
+
+      <button
+        onclick="useGPSLocation()"
+        class="border border-[#D4AF37] text-[#D4AF37] px-4 py-2 rounded-lg font-bold">
+        📍 Use My GPS
+      </button>
+
+      <button
+        onclick="showAllCourses()"
+        class="border border-[#1E4D32] text-gray-200 px-4 py-2 rounded-lg font-bold">
+        Show All
+      </button>
+
+    </div>
+
+    <p id="search-status" class="text-sm font-semibold text-gray-400 mt-4">
+      Showing featured courses.
+    </p>
+
+  </div>
+
+
+  <div
+    id="course-results"
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  </div>
+
+</section>
+
+
+<!-- PROFILES -->
+<section id="profiles" class="space-y-6">
+
+  <div class="border-b-2 border-[#D4AF37] pb-3">
+
+    <h2 class="text-3xl md:text-4xl font-extrabold gold-gradient-text">
+      Golfer Profiles & Directory
+    </h2>
+
+    <p class="text-lg text-gray-300 mt-1">
+      Create a local golfer profile and connect with other GolfMixer members.
+    </p>
+
+  </div>
+
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+    <div class="golf-card-bg border-2 border-[#1E4D32] p-6 rounded-xl shadow-xl">
+
+      <h3 class="text-2xl font-bold gold-text mb-4 border-b border-[#1E4D32] pb-2">
+        Create Your Golfer Profile
+      </h3>
+
+      <form id="profile-form" onsubmit="createGolferProfile(event)" class="space-y-4">
+
+        <div>
+          <label for="prof-name" class="block text-sm font-bold text-gray-300 mb-1">
+            Display Name
+          </label>
+
+          <input
+            type="text"
+            id="prof-name"
+            maxlength="60"
+            required
+            placeholder="Your name"
+            class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg outline-none">
+        </div>
+
+
+        <div>
+          <label for="prof-handicap" class="block text-sm font-bold text-gray-300 mb-1">
+            Handicap / Skill Level
+          </label>
+
+          <input
+            type="text"
+            id="prof-handicap"
+            maxlength="30"
+            required
+            placeholder="12.4 or Casual Player"
+            class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg outline-none">
+        </div>
+
+
+        <div>
+          <label for="prof-course" class="block text-sm font-bold text-gray-300 mb-1">
+            Home Golf Course
+          </label>
+
+          <input
+            type="text"
+            id="prof-course"
+            maxlength="100"
+            required
+            placeholder="Home course or club"
+            class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg outline-none">
+        </div>
+
+
+        <div>
+          <label for="prof-location" class="block text-sm font-bold text-gray-300 mb-1">
+            City & State
+          </label>
+
+          <input
+            type="text"
+            id="prof-location"
+            maxlength="100"
+            required
+            placeholder="Williamsburg, VA"
+            class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg outline-none">
+        </div>
+
+
+        <div>
+          <label for="prof-photo" class="block text-sm font-bold text-gray-300 mb-1">
+            Profile Photo
+          </label>
+
+          <input
+            type="file"
+            id="prof-photo"
+            accept="image/jpeg,image/png,image/webp"
+            class="w-full p-2 bg-[#0A1F14] text-gray-300 border border-[#1E4D32] rounded-lg">
+        </div>
+
+
+        <div>
+          <label for="prof-bio" class="block text-sm font-bold text-gray-300 mb-1">
+            Short Golf Bio
+          </label>
+
+          <textarea
+            id="prof-bio"
+            rows="3"
+            maxlength="300"
+            placeholder="Tell other golfers about your game..."
+            class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg outline-none"></textarea>
+        </div>
+
+
+        <button
+          type="submit"
+          class="w-full gold-button py-3 rounded-lg">
+          Save My Golfer Profile
+        </button>
+
+      </form>
+
+    </div>
+
+
+    <div class="lg:col-span-2 space-y-4">
+
+      <div class="flex flex-col sm:flex-row justify-between gap-3">
+
+        <h3 class="text-2xl font-bold text-white">
+          GolfMixer Members
+        </h3>
+
+        <input
+          id="profile-search"
+          oninput="renderProfiles()"
+          placeholder="Search golfers..."
+          class="bg-[#0A1F14] border border-[#1E4D32] rounded-lg px-3 py-2 text-white">
+
+      </div>
+
+      <div
+        id="profiles-list"
+        class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- 19TH HOLE -->
+<section id="clubhouse" class="space-y-6">
+
+  <div class="border-b-2 border-[#D4AF37] pb-3">
+
+    <h2 class="text-3xl md:text-4xl font-extrabold gold-gradient-text">
+      The 19th Hole: Clubhouse Social Lounge
+    </h2>
+
+    <p class="text-lg text-gray-300 mt-1">
+      Post social plans, dinners, drinks, watch parties and clubhouse gatherings.
+    </p>
+
+  </div>
+
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+    <div class="golf-card-bg border-2 border-[#1E4D32] p-6 rounded-xl shadow-xl">
+
+      <h3 class="text-2xl font-bold gold-text mb-4 border-b border-[#1E4D32] pb-2">
+        Create Social Event
+      </h3>
+
+      <form id="social-form" onsubmit="createSocialPost(event)" class="space-y-4">
+
+        <input
+          id="social-author"
+          required
+          maxlength="60"
+          placeholder="Your name"
+          class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg">
+
+        <input
+          id="social-club"
+          required
+          maxlength="120"
+          placeholder="Clubhouse / Venue"
+          class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg">
+
+        <select
+          id="social-activity"
+          class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg">
+
+          <option>Post-Round Drinks & Cocktail Hour</option>
+          <option>Clubhouse Dinner & Patio Social</option>
+          <option>Charity Scramble Banquet</option>
+          <option>Golf Trivia & Watch Party</option>
+          <option>Other Golf Social</option>
+
+        </select>
+
+        <input
+          id="social-date"
+          type="datetime-local"
+          required
+          class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg">
+
+        <textarea
+          id="social-desc"
+          rows="4"
+          maxlength="500"
+          required
+          placeholder="Details about the gathering..."
+          class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg"></textarea>
+
+        <button
+          type="submit"
+          class="w-full gold-button py-3 rounded-lg">
+          Post to 19th Hole
+        </button>
+
+      </form>
+
+    </div>
+
+
+    <div class="lg:col-span-2 space-y-4">
+
+      <div class="flex justify-between items-center gap-3">
+        <h3 class="text-2xl font-bold text-white">
+          Upcoming Clubhouse Socials
+        </h3>
+
+        <button
+          onclick="clearExpiredSocials()"
+          class="text-xs border border-[#1E4D32] px-3 py-2 rounded-lg">
+          Remove Expired
         </button>
       </div>
 
-      <div class="golf-card-bg p-6 rounded-xl border-2 border-[#1E4D32] shadow-xl space-y-4">
-        <div class="flex flex-col md:flex-row gap-4">
-          <input type="text" id="zip-input" placeholder="Enter 5-Digit ZIP Code (e.g., 23185, 32082)" 
-                 class="flex-1 px-4 py-3 text-xl bg-[#0A1F14] text-white border-2 border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
-          <select id="state-input" class="px-4 py-3 text-xl bg-[#0A1F14] text-white border-2 border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
-            <option value="">All States</option>
-            <option value="VA">Virginia</option>
-            <option value="FL">Florida</option>
-            <option value="CA">California</option>
-            <option value="NC">North Carolina</option>
-            <option value="SC">South Carolina</option>
-          </select>
-          <button onclick="searchCourses()" class="gold-button text-xl px-8 py-3 rounded-lg transition">
-            Search Courses
-          </button>
-        </div>
-        <p id="search-status" class="text-sm font-semibold text-gray-400">Showing all top featured golf clubs across the network.</p>
-      </div>
-
-      <div id="course-results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Course Cards Populate via JavaScript -->
-      </div>
-    </section>
-
-    <!-- Golfer Profile Creation Hub -->
-    <section id="profiles" class="space-y-6">
-      <div class="border-b-2 border-[#D4AF37] pb-3">
-        <h2 class="text-3xl md:text-4xl font-extrabold gold-gradient-text">Golfer Profiles & Directory</h2>
-        <p class="text-lg text-gray-300 mt-1">Create your profile, upload your photo, and connect to mixers.</p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Create Profile Form -->
-        <div class="golf-card-bg border-2 border-[#1E4D32] p-6 rounded-xl shadow-xl">
-          <h3 class="text-2xl font-bold gold-text mb-4 border-b border-[#1E4D32] pb-2">Create Your Golfer Profile</h3>
-          <form id="profile-form" onsubmit="createGolferProfile(event)" class="space-y-4">
-            <div>
-              <label for="prof-name" class="block text-sm font-bold text-gray-300 mb-1">Full Name</label>
-              <input type="text" id="prof-name" required placeholder="e.g., Robert Kayian" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
-            </div>
-            <div>
-              <label for="prof-handicap" class="block text-sm font-bold text-gray-300 mb-1">Handicap Index / Skill Level</label>
-              <input type="text" id="prof-handicap" required placeholder="e.g., 12.4 or Casual Player" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
-            </div>
-            <div>
-              <label for="prof-course" class="block text-sm font-bold text-gray-300 mb-1">Home Golf Course / Club</label>
-              <input type="text" id="prof-course" required placeholder="e.g., Golden Horseshoe Golf Club" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
-            </div>
-            <div>
-              <label for="prof-location" class="block text-sm font-bold text-gray-300 mb-1">City & State</label>
-              <input type="text" id="prof-location" required placeholder="e.g., Williamsburg, VA" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
-            </div>
-            <div>
-              <label for="prof-photo" class="block text-sm font-bold text-gray-300 mb-1">Upload Profile Photo / Golf Picture</label>
-              <input type="file" id="prof-photo" accept="image/*" class="w-full p-2 bg-[#0A1F14] text-gray-300 border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
-            </div>
-            <div>
-              <label for="prof-bio" class="block text-sm font-bold text-gray-300 mb-1">Short Golf Bio</label>
-              <textarea id="prof-bio" rows="2" placeholder="Tell other members about your game..." class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none"></textarea>
-            </div>
-            <button type="submit" class="w-full gold-button py-3 rounded-lg transition">
-              Publish Profile & Activate Session
-            </button>
-          </form>
-        </div>
-
-        <!-- Golfer Profiles List -->
-        <div class="lg:col-span-2 space-y-4">
-          <h3 class="text-2xl font-bold text-white">Featured Members</h3>
-          <div id="profiles-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Dynamically Populated Profiles -->
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 19th Hole Clubhouse Social Lounge -->
-    <section id="clubhouse" class="space-y-6">
-      <div class="border-b-2 border-[#D4AF37] pb-3">
-        <h2 class="text-3xl md:text-4xl font-extrabold gold-gradient-text">The 19th Hole: Clubhouse Social Lounge</h2>
-        <p class="text-lg text-gray-300 mt-1">Post after-golf social plans, dinner meetups, and clubhouse events.</p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Post Social Event Form -->
-        <div class="golf-card-bg border-2 border-[#1E4D32] p-6 rounded-xl shadow-xl">
-          <h3 class="text-2xl font-bold gold-text mb-4 border-b border-[#1E4D32] pb-2">Post Clubhouse Social Activity</h3>
-          <form id="social-form" onsubmit="createSocialPost(event)" class="space-y-4">
-            <div>
-              <label for="social-author" class="block text-sm font-bold text-gray-300 mb-1">Your Name</label>
-              <input type="text" id="social-author" required placeholder="Your Name" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
-            </div>
-            <div>
-              <label for="social-club" class="block text-sm font-bold text-gray-300 mb-1">Clubhouse / Country Club Venue</label>
-              <input type="text" id="social-club" required placeholder="e.g., Kingsmill Dining Room" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
-            </div>
-            <div>
-              <label for="social-activity" class="block text-sm font-bold text-gray-300 mb-1">Activity Type</label>
-              <select id="social-activity" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
-                <option value="Post-Round Drinks & Cocktail Hour">Post-Round Drinks & Cocktail Hour</option>
-                <option value="Clubhouse Dinner & Patio Social">Clubhouse Dinner & Patio Social</option>
-                <option value="Weekend Charity Scramble Banquet">Weekend Charity Scramble Banquet</option>
-                <option value="Golf Trivia & Watch Party">Golf Trivia & Watch Party</option>
-              </select>
-            </div>
-            <div>
-              <label for="social-desc" class="block text-sm font-bold text-gray-300 mb-1">Details & Meeting Time</label>
-              <textarea id="social-desc" rows="3" required placeholder="e.g., Meeting on the back patio at 5:00 PM after 18 holes!" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none"></textarea>
-            </div>
-            <button type="submit" class="w-full gold-button py-3 rounded-lg transition">
-              Post to 19th Hole Lounge
-            </button>
-          </form>
-        </div>
-
-        <!-- Social Activity Feed -->
-        <div class="lg:col-span-2 space-y-4">
-          <h3 class="text-2xl font-bold text-white">Upcoming After-Golf Clubhouse Socials</h3>
-          <div id="social-feed" class="space-y-4">
-            <!-- Dynamically Populated Posts -->
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Golf Mixers & Team Finder -->
-    <section id="mixers" class="space-y-6">
-      <div class="border-b-2 border-[#D4AF37] pb-3">
-        <h2 class="text-3xl md:text-4xl font-extrabold gold-gradient-text">Golf Mixers & Group Matches</h2>
-        <p class="text-lg text-gray-300 mt-1">Organize weekend foursomes, scrambles, and casual golf match-ups.</p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="golf-card-bg border-2 border-[#1E4D32] p-6 rounded-xl shadow-xl">
-          <h3 class="text-2xl font-bold gold-text mb-4 border-b border-[#1E4D32] pb-2">Schedule a Golf Mixer</h3>
-          <form id="mixer-form" onsubmit="createMixer(event)" class="space-y-4">
-            <div>
-              <label for="host-name" class="block text-sm font-bold text-gray-300 mb-1">Host Name</label>
-              <input type="text" id="host-name" required placeholder="Organizer Name" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
-            </div>
-            <div>
-              <label for="mixer-course" class="block text-sm font-bold text-gray-300 mb-1">Golf Course</label>
-              <input type="text" id="mixer-course" required placeholder="e.g., Williamsburg National" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
-            </div>
-            <div>
-              <label for="mixer-type" class="block text-sm font-bold text-gray-300 mb-1">Event Format</label>
-              <select id="mixer-type" class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg focus:border-[#D4AF37] outline-none">
-                <option value="Casual 4-Some Match">Casual 4-Some Match</option>
-                <option value="Weekend Scramble">Weekend Scramble</option>
-                <option value="9-Hole Afternoon Group">9-Hole Afternoon Group</option>
-              </select>
-            </div>
-            <button type="submit" class="w-full gold-button py-3 rounded-lg transition">
-              Publish Golf Mixer
-            </button>
-          </form>
-        </div>
-
-        <div class="lg:col-span-2 space-y-4">
-          <h3 class="text-2xl font-bold text-white">Available Tee-Time Mixers</h3>
-          <div id="mixers-list" class="space-y-4">
-            <!-- Dynamically Populated Mixers -->
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- News & Verified External Golf Links -->
-    <section id="news" class="space-y-6">
-      <div class="border-b-2 border-[#D4AF37] pb-3">
-        <h2 class="text-3xl md:text-4xl font-extrabold gold-gradient-text">Real-Time Golf News & Tournaments</h2>
-        <p class="text-lg text-gray-300 mt-1">Updates on PGA/LPGA tours, charity scrambles, and swing lessons.</p>
-      </div>
-
-      <div id="news-feed" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        <div class="golf-card-bg border border-[#1E4D32] rounded-xl p-6 shadow-md flex flex-col justify-between space-y-4">
-          <div>
-            <div class="flex justify-between items-center mb-3">
-              <span class="bg-[#1E4D32] gold-text text-xs font-bold px-2.5 py-1 rounded uppercase tracking-wider">Tournaments</span>
-              <span class="text-xs text-gray-400 font-semibold">Live Updates</span>
-            </div>
-            <h3 class="text-xl font-bold text-white mb-2">PGA & LPGA Leaderboards & Tour News</h3>
-            <p class="text-gray-300 text-sm">Real-time scores, standings, and tournament champion coverage.</p>
-          </div>
-          <a href="https://www.pgatour.com" target="_blank" rel="noopener noreferrer" 
-             class="block text-center gold-button py-2.5 px-4 rounded-lg transition">
-            View Live Scores ↗
-          </a>
-        </div>
-
-        <div class="golf-card-bg border border-[#1E4D32] rounded-xl p-6 shadow-md flex flex-col justify-between space-y-4">
-          <div>
-            <div class="flex justify-between items-center mb-3">
-              <span class="bg-[#1E4D32] gold-text text-xs font-bold px-2.5 py-1 rounded uppercase tracking-wider">Charity Events</span>
-              <span class="text-xs text-gray-400 font-semibold">Featured Outings</span>
-            </div>
-            <h3 class="text-xl font-bold text-white mb-2">Charity Golf Outings & Benefit Scrambles</h3>
-            <p class="text-gray-300 text-sm">Find local charity tournaments and benefit matches at nearby courses.</p>
-          </div>
-          <a href="https://golfstatus.com" target="_blank" rel="noopener noreferrer" 
-             class="block text-center gold-button py-2.5 px-4 rounded-lg transition">
-            Find Charity Events ↗
-          </a>
-        </div>
-
-        <div class="golf-card-bg border border-[#1E4D32] rounded-xl p-6 shadow-md flex flex-col justify-between space-y-4">
-          <div>
-            <div class="flex justify-between items-center mb-3">
-              <span class="bg-[#1E4D32] gold-text text-xs font-bold px-2.5 py-1 rounded uppercase tracking-wider">Instruction</span>
-              <span class="text-xs text-gray-400 font-semibold">Pro Tips</span>
-            </div>
-            <h3 class="text-xl font-bold text-white mb-2">PGA Coaching & Swing Analysis</h3>
-            <p class="text-gray-300 text-sm">Connect with certified golf professionals for lessons and game improvement.</p>
-          </div>
-          <a href="https://www.pga.com" target="_blank" rel="noopener noreferrer" 
-             class="block text-center gold-button py-2.5 px-4 rounded-lg transition">
-            Find PGA Lessons ↗
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Password-Protected Owner Admin Dashboard Modal -->
-  <div id="admin-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50 overflow-y-auto" role="dialog" aria-modal="true">
-    <div class="bg-[#0A1F14] p-8 rounded-2xl max-w-4xl w-full space-y-6 shadow-2xl border-2 border-[#D4AF37] my-8 text-white">
-      
-      <div class="flex justify-between items-center border-b border-[#1E4D32] pb-4">
-        <div>
-          <h3 class="text-3xl font-extrabold gold-gradient-text">Owner Private Admin Dashboard</h3>
-          <p class="text-gray-400 font-medium">GolfMixer.com Analytics & Access Logs</p>
-        </div>
-        <button onclick="toggleAdminModal()" class="text-3xl font-bold text-gray-400 hover:text-white">&times;</button>
-      </div>
-
-      <div id="admin-login-step" class="py-4">
-        <p class="text-lg text-gray-300 font-semibold mb-4">Enter owner password to unlock admin portal:</p>
-        <div class="flex gap-4 max-w-md">
-          <input type="password" id="admin-pass" placeholder="Enter Admin Password" class="flex-1 p-3 text-lg bg-[#122B1D] border border-[#1E4D32] rounded-lg outline-none focus:border-[#D4AF37]">
-          <button onclick="checkAdminPass()" class="gold-button text-lg font-bold px-6 py-3 rounded-lg transition">
-            Unlock Panel
-          </button>
-        </div>
-        <p id="admin-err" class="text-red-400 font-bold text-md mt-3 hidden">⚠️ Incorrect password. Try again.</p>
-      </div>
-
-      <div id="admin-panel-step" class="hidden space-y-6">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-[#122B1D] p-4 rounded-xl border border-[#D4AF37] gap-2">
-          <div class="flex items-center space-x-3">
-            <span class="text-2xl" aria-hidden="true">✅</span>
-            <span class="text-xl font-bold gold-text">Authenticated Site Owner</span>
-          </div>
-          <span class="text-sm font-bold bg-[#D4AF37] text-black px-3 py-1.5 rounded-md">Live GPS Syncing</span>
-        </div>
-
-        <div>
-          <h4 class="text-xl font-bold text-white mb-3">Visitor Logs (Ascending Order)</h4>
-          <div class="overflow-x-auto border border-[#1E4D32] rounded-xl shadow-sm">
-            <table class="w-full text-left border-collapse">
-              <thead>
-                <tr class="bg-[#122B1D] gold-text text-lg">
-                  <th class="p-4 border-b border-[#1E4D32] font-bold">#</th>
-                  <th class="p-4 border-b border-[#1E4D32] font-bold">Timestamp</th>
-                  <th class="p-4 border-b border-[#1E4D32] font-bold">GPS / City Location</th>
-                  <th class="p-4 border-b border-[#1E4D32] font-bold">IP Address</th>
-                  <th class="p-4 border-b border-[#1E4D32] font-bold">Time on Site</th>
-                </tr>
-              </thead>
-              <tbody id="admin-visitor-rows" class="divide-y divide-[#1E4D32] text-lg font-semibold text-gray-200 bg-[#0A1F14]">
-                <!-- Dynamically populated via script -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+      <div id="social-feed" class="space-y-4"></div>
 
     </div>
+
   </div>
 
-  <!-- Professional Footer with Disclaimer -->
-  <footer class="bg-[#0A1F14] text-white border-t-2 border-[#D4AF37] py-8 px-6 mt-12">
-    <div class="max-w-7xl mx-auto space-y-6">
-      <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4">
-        <div>
-          <p class="text-3xl font-extrabold tracking-tight">Golf<span class="gold-gradient-text">Mixer</span>.com</p>
-          <p class="gold-text text-sm mt-1 uppercase tracking-widest">"The Gold Standard for the Golf Community"</p>
-        </div>
-        <div class="flex flex-col items-center md:items-end">
-          <p class="text-sm text-gray-400">&copy; 2026 GolfMixer.com. All rights reserved.</p>
-          <button onclick="toggleAdminModal()" class="text-xs gold-text hover:underline mt-1.5 transition opacity-80 hover:opacity-100">
-            Owner Admin Access
-          </button>
-        </div>
+</section>
+
+
+<!-- MIXERS -->
+<section id="mixers" class="space-y-6">
+
+  <div class="border-b-2 border-[#D4AF37] pb-3">
+
+    <h2 class="text-3xl md:text-4xl font-extrabold gold-gradient-text">
+      Golf Mixers & Group Matches
+    </h2>
+
+    <p class="text-lg text-gray-300 mt-1">
+      Organize foursomes, scrambles, nine-hole groups and casual matches.
+    </p>
+
+  </div>
+
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+    <div class="golf-card-bg border-2 border-[#1E4D32] p-6 rounded-xl shadow-xl">
+
+      <h3 class="text-2xl font-bold gold-text mb-4 border-b border-[#1E4D32] pb-2">
+        Schedule a Golf Mixer
+      </h3>
+
+      <form id="mixer-form" onsubmit="createMixer(event)" class="space-y-4">
+
+        <input
+          id="host-name"
+          required
+          maxlength="60"
+          placeholder="Host name"
+          class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg">
+
+        <input
+          id="mixer-course"
+          required
+          maxlength="120"
+          placeholder="Golf course"
+          class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg">
+
+        <select
+          id="mixer-type"
+          class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg">
+
+          <option>Casual 4-Some Match</option>
+          <option>Weekend Scramble</option>
+          <option>9-Hole Afternoon Group</option>
+          <option>18-Hole Group</option>
+          <option>Practice / Range Meetup</option>
+
+        </select>
+
+        <input
+          id="mixer-date"
+          type="datetime-local"
+          required
+          class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg">
+
+        <select
+          id="mixer-spots"
+          class="w-full p-3 bg-[#0A1F14] text-white border border-[#1E4D32] rounded-lg">
+
+          <option value="2">2 Players</option>
+          <option value="3">3 Players</option>
+          <option value="4" selected>4 Players</option>
+          <option value="8">8 Players</option>
+          <option value="12">12 Players</option>
+
+        </select>
+
+        <button
+          type="submit"
+          class="w-full gold-button py-3 rounded-lg">
+          Publish Golf Mixer
+        </button>
+
+      </form>
+
+    </div>
+
+
+    <div class="lg:col-span-2 space-y-4">
+
+      <div class="flex flex-col sm:flex-row justify-between gap-3">
+
+        <h3 class="text-2xl font-bold text-white">
+          Available Golf Mixers
+        </h3>
+
+        <select
+          id="mixer-filter"
+          onchange="renderMixers()"
+          class="bg-[#0A1F14] border border-[#1E4D32] rounded-lg px-3 py-2 text-white">
+
+          <option value="all">All Mixers</option>
+          <option value="open">Open Spots</option>
+          <option value="full">Full Groups</option>
+
+        </select>
+
       </div>
 
-      <div class="border-t border-[#1E4D32] pt-4 text-center md:text-left">
-        <p class="text-xs text-gray-400 leading-relaxed">
-          <strong>Disclaimer:</strong> GolfMixer.com is an independent golf directory and social network. GolfMixer.com is not affiliated, associated, authorized, endorsed by, or in any way officially connected with PGA, PGA TOUR, LPGA, GolfStatus, or any of their subsidiaries or affiliates. All trademarks™ or registered® trademarks belong to their respective holders. Links to third-party golf course websites are provided solely for user reference.
+      <div id="mixers-list" class="space-y-4"></div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- NEWS -->
+<section id="news" class="space-y-6">
+
+  <div class="border-b-2 border-[#D4AF37] pb-3">
+
+    <h2 class="text-3xl md:text-4xl font-extrabold gold-gradient-text">
+      Golf News & Resources
+    </h2>
+
+    <p class="text-lg text-gray-300 mt-1">
+      Quick access to established golf organizations and resources.
+    </p>
+
+  </div>
+
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    <div class="golf-card-bg border border-[#1E4D32] rounded-xl p-6 flex flex-col justify-between gap-5">
+
+      <div>
+        <span class="badge">TOURNAMENTS</span>
+
+        <h3 class="text-xl font-bold text-white mt-3">
+          PGA TOUR
+        </h3>
+
+        <p class="text-gray-300 text-sm mt-2">
+          Visit the official PGA TOUR website for schedules, scores and tournament information.
         </p>
       </div>
+
+      <a
+        href="https://www.pgatour.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="block text-center gold-button py-2.5 px-4 rounded-lg">
+        PGA TOUR ↗
+      </a>
+
     </div>
-  </footer>
 
-  <!-- Application Logic -->
-  <script>
-    // National Database of Golf Courses with Verified Home Page URLs
-    const courseDatabase = [
-      { name: "Golden Horseshoe Golf Club", state: "VA", zip: "23185", city: "Williamsburg", type: "Championship Course", holes: 18, rating: "4.9 ★", lat: 37.2707, lon: -76.7075, url: "https://www.colonialwilliamsburgresorts.com/golf/" },
-      { name: "Kingsmill Resort Golf Club", state: "VA", zip: "23185", city: "Williamsburg", type: "Resort & Country Club", holes: 36, rating: "4.8 ★", lat: 37.2305, lon: -76.6631, url: "https://www.kingsmill.com/golf/" },
-      { name: "Williamsburg National Golf Club", state: "VA", zip: "23188", city: "Williamsburg", type: "Golf & Country Club", holes: 36, rating: "4.7 ★", lat: 37.3100, lon: -76.7600, url: "https://williamsburgnationalgolfclub.com/" },
-      { name: "TPC Sawgrass", state: "FL", zip: "32082", city: "Ponte Vedra Beach", type: "PGA Tour Resort", holes: 18, rating: "5.0 ★", lat: 30.1975, lon: -81.3931, url: "https://tpc.com/sawgrass/" },
-      { name: "Brandon Golf & Country Club", state: "FL", zip: "33511", city: "Brandon", type: "Country Club", holes: 18, rating: "4.6 ★", lat: 27.9378, lon: -82.2859, url: "https://www.google.com/search?q=Brandon+Golf+and+Country+Club+Florida" },
-      { name: "Pebble Beach Golf Links", state: "CA", zip: "93953", city: "Pebble Beach", type: "Resort & Golf Club", holes: 18, rating: "5.0 ★", lat: 36.5688, lon: -121.9506, url: "https://www.pebblebeach.com/golf/pebble-beach-golf-links/" },
-      { name: "Pinehurst No. 2", state: "NC", zip: "28374", city: "Pinehurst", type: "Country Club Resort", holes: 18, rating: "4.9 ★", lat: 35.1896, lon: -79.4684, url: "https://www.pinehurst.com/golf/courses/no-2/" },
-      { name: "Ocean Course at Kiawah Island", state: "SC", zip: "29455", city: "Kiawah Island", type: "Golf & Resort Club", holes: 18, rating: "4.8 ★", lat: 32.6108, lon: -80.0345, url: "https://kiawahresort.com/golf/the-ocean-course/" }
-    ];
 
-    // Track active user profile after creation
-    let activeUserProfile = null;
+    <div class="golf-card-bg border border-[#1E4D32] rounded-xl p-6 flex flex-col justify-between gap-5">
 
-    // Seed Data Sets
-    let golferProfiles = [
-      { 
-        name: "Ralph Hughes", 
-        handicap: "8.2 Index", 
-        course: "Golden Horseshoe Golf Club", 
-        location: "Williamsburg, VA", 
-        bio: "Avid golfer, loves playing weekend rounds and meeting local members.",
-        photo: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=300&q=80"
-      },
-      { 
-        name: "Robert Kayian", 
-        handicap: "14.0 Index", 
-        course: "Kingsmill Resort", 
-        location: "Williamsburg, VA", 
-        bio: "Founder of GolfMixer.com. Enjoying the game and clubhouse gatherings.",
-        photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80"
-      }
-    ];
+      <div>
+        <span class="badge">GOLF ORGANIZATION</span>
 
-    let socialPosts = [
-      {
-        id: 101,
-        author: "Dave Albert",
-        club: "Kingsmill Resort Clubhouse",
-        activity: "Post-Round Drinks & Cocktail Hour",
-        time: "Today at 5:30 PM",
-        desc: "Finished 18 holes! Joining everyone on the patio for drinks and socializing.",
-        attendees: ["Dave Albert", "Ralph Hughes"]
-      },
-      {
-        id: 102,
-        author: "Piero Barbagallo",
-        club: "Golden Horseshoe Patio",
-        activity: "Clubhouse Dinner & Patio Social",
-        time: "Saturday at 6:30 PM",
-        desc: "Hosting a group dinner at the main clubhouse. All GolfMixer members welcome!",
-        attendees: ["Piero Barbagallo"]
-      }
-    ];
+        <h3 class="text-xl font-bold text-white mt-3">
+          PGA of America
+        </h3>
 
-    let golfMixers = [
-      { id: 201, host: "Ralph H.", course: "Golden Horseshoe Golf Club", type: "Weekend Scramble", date: "Saturday, 9:00 AM", totalSpots: 4, attendees: ["Ralph H.", "Robert K."] },
-      { id: 202, host: "Mike S.", course: "Kingsmill Golf Club", type: "Casual 4-Some Match", date: "Sunday, 1:30 PM", totalSpots: 4, attendees: ["Mike S."] }
-    ];
+        <p class="text-gray-300 text-sm mt-2">
+          Golf instruction, professionals, events and golf resources.
+        </p>
+      </div>
 
-    let visitorSessionStart = Date.now();
-    let currentVisitorInfo = { city: "Williamsburg", state: "VA", ip: "127.0.0.1", lat: 37.2707, lon: -76.7075 };
+      <a
+        href="https://www.pga.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="block text-center gold-button py-2.5 px-4 rounded-lg">
+        PGA.com ↗
+      </a>
 
-    let mockLogins = [
-      { id: 1, time: "09:12:00 AM", location: "Richmond, VA", ip: "172.56.21.4", sessionStart: Date.now() - 1800000 },
-      { id: 2, time: "09:45:30 AM", location: "Orlando, FL", ip: "104.28.19.88", sessionStart: Date.now() - 1200000 },
-      { id: 3, time: "10:01:15 AM", location: "Williamsburg, VA (Current)", ip: "68.10.14.22", sessionStart: visitorSessionStart }
-    ];
+    </div>
 
-    // Initialize Page
-    window.addEventListener("DOMContentLoaded", () => {
-      initVisitorTracker();
-      renderCourses(courseDatabase);
-      renderProfiles();
-      renderSocialFeed();
-      renderMixers();
-      startClock();
-      setInterval(updateAdminTimers, 1000);
+
+    <div class="golf-card-bg border border-[#1E4D32] rounded-xl p-6 flex flex-col justify-between gap-5">
+
+      <div>
+        <span class="badge">LPGA</span>
+
+        <h3 class="text-xl font-bold text-white mt-3">
+          LPGA
+        </h3>
+
+        <p class="text-gray-300 text-sm mt-2">
+          Official LPGA tournament and women's professional golf resources.
+        </p>
+      </div>
+
+      <a
+        href="https://www.lpga.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="block text-center gold-button py-2.5 px-4 rounded-lg">
+        LPGA.com ↗
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- USER DATA / PRIVACY CONTROLS -->
+<section class="space-y-6">
+
+  <div class="golf-card-bg border-2 border-[#1E4D32] rounded-xl p-6">
+
+    <h2 class="text-2xl font-bold gold-text">
+      Your GolfMixer Data
+    </h2>
+
+    <p class="text-gray-300 mt-2">
+      Profiles, mixer posts, social posts and preferences created on this browser
+      are stored locally in your browser. They are not automatically published
+      to a central GolfMixer database by this single-page version.
+    </p>
+
+    <div class="flex flex-wrap gap-3 mt-5">
+
+      <button
+        onclick="exportMyData()"
+        class="gold-button px-5 py-2.5 rounded-lg">
+        Export My Data
+      </button>
+
+      <button
+        onclick="clearMyData()"
+        class="border border-red-500 text-red-300 px-5 py-2.5 rounded-lg">
+        Delete My Local Data
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<!-- FOOTER -->
+<footer class="bg-[#0A1F14] text-white border-t-2 border-[#D4AF37] py-9 px-5 mt-12">
+
+  <div class="max-w-7xl mx-auto space-y-7">
+
+    <div class="flex flex-col md:flex-row justify-between items-start gap-6">
+
+      <div>
+
+        <p class="text-3xl font-extrabold tracking-tight">
+          Golf<span class="gold-gradient-text">Mixer</span>.com
+        </p>
+
+        <p class="gold-text text-sm mt-1 uppercase tracking-widest">
+          The Gold Standard for the Golf Community
+        </p>
+
+        <p class="text-xs text-gray-500 mt-3">
+          © 2026 GolfMixer.com. All rights reserved.
+        </p>
+
+      </div>
+
+
+      <div class="flex flex-wrap gap-4 text-sm">
+
+        <button onclick="openModal('privacy-modal')" class="hover:text-[#D4AF37]">
+          Privacy
+        </button>
+
+        <button onclick="openModal('terms-modal')" class="hover:text-[#D4AF37]">
+          Terms
+        </button>
+
+        <button onclick="openModal('disclaimer-modal')" class="hover:text-[#D4AF37]">
+          Disclaimer
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="border-t border-[#1E4D32] pt-5">
+
+      <p class="text-xs text-gray-400 leading-relaxed">
+        <strong class="text-gray-300">Disclaimer:</strong>
+        GolfMixer.com is an independent golf community and directory concept.
+        It is not affiliated with, sponsored by, endorsed by, or officially connected
+        with PGA TOUR, PGA of America, LPGA, individual golf courses, country clubs,
+        or other third-party organizations unless specifically stated.
+        Third-party names, logos, trademarks and service marks belong to their
+        respective owners.
+      </p>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+<!-- PRIVACY MODAL -->
+<div id="privacy-modal" class="modal" onclick="closeModalOnBackdrop(event,'privacy-modal')">
+
+  <div class="modal-card">
+
+    <button class="close-modal" onclick="closeModal('privacy-modal')">
+      &times;
+    </button>
+
+    <h2 class="text-3xl font-extrabold gold-gradient-text">
+      Privacy Notice
+    </h2>
+
+    <p>
+      GolfMixer.com is designed to minimize unnecessary collection of personal
+      information in this browser-based version.
+    </p>
+
+    <h3 class="text-xl font-bold gold-text mt-6">
+      Information You Enter
+    </h3>
+
+    <p>
+      Information such as a display name, handicap or skill level, home course,
+      location, biography, social posts and mixer information may be stored
+      locally in your browser to make the site functional.
+    </p>
+
+    <h3 class="text-xl font-bold gold-text mt-6">
+      Location
+    </h3>
+
+    <p>
+      GolfMixer.com does not automatically request your device's GPS location.
+      GPS is requested only when you select a location-search feature and your
+      browser asks for permission. You may deny the request.
+    </p>
+
+    <h3 class="text-xl font-bold gold-text mt-6">
+      Analytics
+    </h3>
+
+    <p>
+      The site may use a privacy-oriented analytics service to measure aggregate
+      site visits. No individual visitor log containing IP addresses is presented
+      in the GolfMixer interface.
+    </p>
+
+    <h3 class="text-xl font-bold gold-text mt-6">
+      Your Controls
+    </h3>
+
+    <p>
+      You can export or delete the GolfMixer information stored locally in this
+      browser using the controls provided on the site.
+    </p>
+
+    <p class="text-sm text-gray-500 mt-6">
+      This notice is general website information and is not legal advice.
+      Operators should review the privacy requirements applicable to their
+      business, users and jurisdiction.
+    </p>
+
+  </div>
+
+</div>
+
+
+<!-- TERMS MODAL -->
+<div id="terms-modal" class="modal" onclick="closeModalOnBackdrop(event,'terms-modal')">
+
+  <div class="modal-card">
+
+    <button class="close-modal" onclick="closeModal('terms-modal')">
+      &times;
+    </button>
+
+    <h2 class="text-3xl font-extrabold gold-gradient-text">
+      Terms of Use
+    </h2>
+
+    <ol class="mt-5 space-y-3 list-decimal pl-5">
+
+      <li>
+        GolfMixer.com is intended to provide golf community, directory and
+        event-organizing tools.
+      </li>
+
+      <li>
+        Users are responsible for information they submit and should not post
+        private, confidential, unlawful, abusive or misleading information.
+      </li>
+
+      <li>
+        GolfMixer.com does not guarantee tee-time availability, course availability,
+        event attendance, scores, prices or third-party services.
+      </li>
+
+      <li>
+        Users should independently verify course details, schedules, reservations,
+        fees and event information before relying upon them.
+      </li>
+
+      <li>
+        Third-party websites linked from GolfMixer.com operate independently and
+        have their own terms and privacy policies.
+      </li>
+
+      <li>
+        GolfMixer.com may modify or remove community content that violates the
+        site's rules or creates a safety, legal or technical concern.
+      </li>
+
+    </ol>
+
+    <p class="text-sm text-gray-500 mt-6">
+      This is a general website terms template and should be reviewed by a
+      qualified attorney before being used as final legal terms.
+    </p>
+
+  </div>
+
+</div>
+
+
+<!-- DISCLAIMER MODAL -->
+<div id="disclaimer-modal" class="modal" onclick="closeModalOnBackdrop(event,'disclaimer-modal')">
+
+  <div class="modal-card">
+
+    <button class="close-modal" onclick="closeModal('disclaimer-modal')">
+      &times;
+    </button>
+
+    <h2 class="text-3xl font-extrabold gold-gradient-text">
+      GolfMixer Disclaimer
+    </h2>
+
+    <p>
+      GolfMixer.com is an independent golf community and information platform.
+      It does not represent that every golf course, golfer, event, score,
+      tournament, social gathering, review or third-party link displayed on the
+      site is current, complete or independently verified.
+    </p>
+
+    <p>
+      Golf course information, schedules, prices, reservations and availability
+      can change. Users should confirm important information directly with the
+      relevant golf course or service provider.
+    </p>
+
+    <p>
+      GolfMixer.com is not responsible for the actions, conduct, availability,
+      accuracy or policies of users, golf courses, event hosts or third-party
+      websites.
+    </p>
+
+    <p>
+      Community meetups are user-organized activities. Users should use
+      reasonable judgment and appropriate safety precautions when meeting people
+      they do not already know.
+    </p>
+
+    <p class="text-sm text-gray-500 mt-6">
+      This disclaimer is general informational language and is not legal advice.
+    </p>
+
+  </div>
+
+</div>
+
+
+<!-- TOAST -->
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+
+<script>
+
+/* =========================================================
+   GOLFMIXER APPLICATION
+   ========================================================= */
+
+const STORAGE = {
+  profiles:"golfmixer_profiles_v2",
+  socials:"golfmixer_socials_v2",
+  mixers:"golfmixer_mixers_v2",
+  activeProfile:"golfmixer_active_profile_v2"
+};
+
+
+/* =========================================================
+   COURSE DATABASE
+   ========================================================= */
+
+const courseDatabase = [
+
+  {
+    name:"Golden Horseshoe Golf Club",
+    state:"VA",
+    zip:"23185",
+    city:"Williamsburg",
+    type:"Championship Course",
+    holes:18,
+    rating:"Featured",
+    lat:37.2707,
+    lon:-76.7075,
+    url:"https://www.colonialwilliamsburgresorts.com/golf/"
+  },
+
+  {
+    name:"Kingsmill Resort Golf Club",
+    state:"VA",
+    zip:"23185",
+    city:"Williamsburg",
+    type:"Resort Golf",
+    holes:36,
+    rating:"Featured",
+    lat:37.2305,
+    lon:-76.6631,
+    url:"https://www.kingsmill.com/golf/"
+  },
+
+  {
+    name:"Williamsburg National Golf Club",
+    state:"VA",
+    zip:"23188",
+    city:"Williamsburg",
+    type:"Golf Club",
+    holes:36,
+    rating:"Featured",
+    lat:37.3100,
+    lon:-76.7600,
+    url:"https://williamsburgnationalgolfclub.com/"
+  },
+
+  {
+    name:"TPC Sawgrass",
+    state:"FL",
+    zip:"32082",
+    city:"Ponte Vedra Beach",
+    type:"PGA TOUR Resort",
+    holes:18,
+    rating:"Featured",
+    lat:30.1975,
+    lon:-81.3931,
+    url:"https://tpc.com/sawgrass/"
+  },
+
+  {
+    name:"Pebble Beach Golf Links",
+    state:"CA",
+    zip:"93953",
+    city:"Pebble Beach",
+    type:"Resort Golf",
+    holes:18,
+    rating:"Featured",
+    lat:36.5688,
+    lon:-121.9506,
+    url:"https://www.pebblebeach.com/golf/pebble-beach-golf-links/"
+  },
+
+  {
+    name:"Pinehurst No. 2",
+    state:"NC",
+    zip:"28374",
+    city:"Pinehurst",
+    type:"Resort Golf",
+    holes:18,
+    rating:"Featured",
+    lat:35.1896,
+    lon:-79.4684,
+    url:"https://www.pinehurst.com/golf/courses/no-2/"
+  },
+
+  {
+    name:"Ocean Course at Kiawah Island",
+    state:"SC",
+    zip:"29455",
+    city:"Kiawah Island",
+    type:"Resort Golf",
+    holes:18,
+    rating:"Featured",
+    lat:32.6108,
+    lon:-80.0345,
+    url:"https://kiawahresort.com/golf/the-ocean-course/"
+  }
+
+];
+
+
+/* =========================================================
+   DEFAULT DATA
+   ========================================================= */
+
+const defaultProfiles = [
+
+  {
+    id:"seed-profile-1",
+    name:"Ralph Hughes",
+    handicap:"8.2 Index",
+    course:"Golden Horseshoe Golf Club",
+    location:"Williamsburg, VA",
+    bio:"Avid golfer who enjoys weekend rounds and meeting local golfers.",
+    photo:"https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=300&q=80",
+    createdAt:Date.now()
+  },
+
+  {
+    id:"seed-profile-2",
+    name:"Robert Kayian",
+    handicap:"14.0 Index",
+    course:"Kingsmill Resort",
+    location:"Williamsburg, VA",
+    bio:"GolfMixer.com founder and golf community enthusiast.",
+    photo:"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80",
+    createdAt:Date.now()
+  }
+
+];
+
+
+const defaultSocials = [
+
+  {
+    id:101,
+    author:"Dave Albert",
+    club:"Kingsmill Resort Clubhouse",
+    activity:"Post-Round Drinks & Cocktail Hour",
+    date:"",
+    desc:"Finished 18 holes and heading to the patio for a social gathering.",
+    attendees:["Dave Albert"],
+    createdAt:Date.now()
+  },
+
+  {
+    id:102,
+    author:"Piero Barbagallo",
+    club:"Golden Horseshoe Patio",
+    activity:"Clubhouse Dinner & Patio Social",
+    date:"",
+    desc:"Hosting a group dinner at the clubhouse. GolfMixer members welcome.",
+    attendees:["Piero Barbagallo"],
+    createdAt:Date.now()
+  }
+
+];
+
+
+const defaultMixers = [
+
+  {
+    id:201,
+    host:"Ralph H.",
+    course:"Golden Horseshoe Golf Club",
+    type:"Weekend Scramble",
+    date:"",
+    totalSpots:4,
+    attendees:["Ralph H."],
+    createdAt:Date.now()
+  },
+
+  {
+    id:202,
+    host:"Mike S.",
+    course:"Kingsmill Golf Club",
+    type:"Casual 4-Some Match",
+    date:"",
+    totalSpots:4,
+    attendees:["Mike S."],
+    createdAt:Date.now()
+  }
+
+];
+
+
+/* =========================================================
+   STORAGE HELPERS
+   ========================================================= */
+
+function readStorage(key, fallback){
+
+  try{
+
+    const value = localStorage.getItem(key);
+
+    if(!value){
+      return fallback;
+    }
+
+    const parsed = JSON.parse(value);
+
+    return parsed;
+
+  }catch(error){
+
+    console.warn("Storage read error:",error);
+
+    return fallback;
+
+  }
+
+}
+
+
+function writeStorage(key,value){
+
+  try{
+
+    localStorage.setItem(
+      key,
+      JSON.stringify(value)
+    );
+
+  }catch(error){
+
+    console.warn("Storage write error:",error);
+
+    showToast(
+      "Your browser could not save this information."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   DATA ACCESS
+   ========================================================= */
+
+let golferProfiles =
+  readStorage(
+    STORAGE.profiles,
+    defaultProfiles
+  );
+
+let socialPosts =
+  readStorage(
+    STORAGE.socials,
+    defaultSocials
+  );
+
+let golfMixers =
+  readStorage(
+    STORAGE.mixers,
+    defaultMixers
+  );
+
+let activeUserProfile =
+  readStorage(
+    STORAGE.activeProfile,
+    null
+  );
+
+
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded",function(){
+
+  renderCourses(courseDatabase);
+
+  renderProfiles();
+
+  renderSocialFeed();
+
+  renderMixers();
+
+  updateCounters();
+
+  setupDateMinimums();
+
+  autoFillUserForms();
+
+});
+
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+
+function toggleMobileMenu(){
+
+  document
+    .getElementById("mobile-menu")
+    .classList.toggle("open");
+
+}
+
+
+function closeMobileMenu(){
+
+  document
+    .getElementById("mobile-menu")
+    .classList.remove("open");
+
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+let toastTimer = null;
+
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer = setTimeout(
+    function(){
+      toast.classList.remove("show");
+    },
+    3500
+  );
+
+}
+
+
+/* =========================================================
+   MODALS
+   ========================================================= */
+
+function openModal(id){
+
+  document
+    .getElementById(id)
+    .classList.add("open");
+
+  document.body.style.overflow="hidden";
+
+}
+
+
+function closeModal(id){
+
+  document
+    .getElementById(id)
+    .classList.remove("open");
+
+  document.body.style.overflow="";
+
+}
+
+
+function closeModalOnBackdrop(event,id){
+
+  if(event.target.id === id){
+
+    closeModal(id);
+
+  }
+
+}
+
+
+document.addEventListener("keydown",function(event){
+
+  if(event.key === "Escape"){
+
+    document
+      .querySelectorAll(".modal.open")
+      .forEach(modal => {
+        closeModal(modal.id);
+      });
+
+  }
+
+});
+
+
+/* =========================================================
+   COURSE SEARCH
+   ========================================================= */
+
+function searchCourses(){
+
+  const search =
+    document
+      .getElementById("course-search")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const zip =
+    document
+      .getElementById("zip-input")
+      .value
+      .trim();
+
+  const state =
+    document
+      .getElementById("state-input")
+      .value;
+
+  const filtered =
+    courseDatabase.filter(course => {
+
+      const nameMatch =
+        !search ||
+        course.name.toLowerCase().includes(search) ||
+        course.city.toLowerCase().includes(search);
+
+      const zipMatch =
+        !zip ||
+        course.zip === zip;
+
+      const stateMatch =
+        !state ||
+        course.state === state;
+
+      return (
+        nameMatch &&
+        zipMatch &&
+        stateMatch
+      );
+
     });
 
-    // Real-Time IP & GPS Tracker
-    async function initVisitorTracker() {
-      try {
-        const response = await fetch("https://ipapi.co/json/");
-        if (response.ok) {
-          const data = await response.json();
-          if (data.city && data.region_code) {
-            currentVisitorInfo.city = data.city;
-            currentVisitorInfo.state = data.region_code;
-            currentVisitorInfo.ip = data.ip || "127.0.0.1";
-            if (data.latitude && data.longitude) {
-              currentVisitorInfo.lat = data.latitude;
-              currentVisitorInfo.lon = data.longitude;
-            }
-          }
+  renderCourses(filtered);
+
+  document
+    .getElementById("search-status")
+    .textContent =
+      `Showing ${filtered.length} course(s) matching your search.`;
+
+}
+
+
+function resetCourseSearch(){
+
+  document.getElementById("course-search").value="";
+  document.getElementById("zip-input").value="";
+  document.getElementById("state-input").value="";
+
+  renderCourses(courseDatabase);
+
+  document
+    .getElementById("search-status")
+    .textContent =
+      "Showing featured courses.";
+
+}
+
+
+function showAllCourses(){
+
+  resetCourseSearch();
+
+}
+
+
+/* =========================================================
+   GPS COURSE SEARCH
+   ========================================================= */
+
+function useGPSLocation(){
+
+  if(!navigator.geolocation){
+
+    showToast(
+      "Your browser does not support location services."
+    );
+
+    return;
+
+  }
+
+  const status =
+    document.getElementById("search-status");
+
+  status.textContent =
+    "Requesting your location…";
+
+  navigator.geolocation.getCurrentPosition(
+
+    function(position){
+
+      const lat =
+        position.coords.latitude;
+
+      const lon =
+        position.coords.longitude;
+
+      const locationText =
+        `GPS location available (${lat.toFixed(3)}, ${lon.toFixed(3)})`;
+
+      document
+        .getElementById("visitor-location")
+        .textContent =
+          locationText;
+
+      const sorted =
+        courseDatabase
+          .map(course => ({
+            ...course,
+            distance:
+              distanceMiles(
+                lat,
+                lon,
+                course.lat,
+                course.lon
+              )
+          }))
+          .sort(
+            (a,b) =>
+              a.distance -
+              b.distance
+          );
+
+      renderCourses(sorted);
+
+      status.textContent =
+        `Courses sorted by approximate distance from your selected GPS location.`;
+
+      showToast(
+        "GPS search completed."
+      );
+
+    },
+
+    function(error){
+
+      let message =
+        "Location access was not available.";
+
+      if(error.code === 1){
+        message =
+          "Location permission was denied.";
+      }
+
+      if(error.code === 2){
+        message =
+          "Your location could not be determined.";
+      }
+
+      if(error.code === 3){
+        message =
+          "Location request timed out.";
+      }
+
+      status.textContent = message;
+
+      showToast(message);
+
+    },
+
+    {
+      enableHighAccuracy:false,
+      timeout:10000,
+      maximumAge:300000
+    }
+
+  );
+
+}
+
+
+function distanceMiles(
+  lat1,
+  lon1,
+  lat2,
+  lon2
+){
+
+  const earthRadius = 3958.8;
+
+  const dLat =
+    toRadians(lat2-lat1);
+
+  const dLon =
+    toRadians(lon2-lon1);
+
+  const a =
+    Math.sin(dLat/2) *
+    Math.sin(dLat/2) +
+    Math.cos(toRadians(lat1)) *
+    Math.cos(toRadians(lat2)) *
+    Math.sin(dLon/2) *
+    Math.sin(dLon/2);
+
+  const c =
+    2 *
+    Math.atan2(
+      Math.sqrt(a),
+      Math.sqrt(1-a)
+    );
+
+  return earthRadius*c;
+
+}
+
+
+function toRadians(value){
+
+  return value *
+    Math.PI /
+    180;
+
+}
+
+
+/* =========================================================
+   COURSE RENDER
+   ========================================================= */
+
+function renderCourses(courses){
+
+  const container =
+    document.getElementById(
+      "course-results"
+    );
+
+  container.innerHTML="";
+
+  if(!courses.length){
+
+    container.innerHTML = `
+      <div class="col-span-full empty-state">
+        <p class="text-xl font-bold text-white">
+          No courses found.
+        </p>
+
+        <p class="mt-2">
+          Try another ZIP code, state or course name.
+        </p>
+
+        <button
+          onclick="resetCourseSearch()"
+          class="gold-button px-5 py-2 rounded-lg mt-4">
+          Reset Search
+        </button>
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  courses.forEach(course => {
+
+    const card =
+      document.createElement("article");
+
+    card.className =
+      "golf-card-bg border-2 border-[#1E4D32] p-6 rounded-xl shadow-md hover:border-[#D4AF37] transition flex flex-col justify-between gap-4";
+
+
+    const distanceHTML =
+      typeof course.distance === "number"
+      ?
+      `<span class="text-xs text-green-300 font-bold">
+        ${course.distance.toFixed(1)} miles away
+       </span>`
+      :
+      "";
+
+
+    card.innerHTML = `
+
+      <div>
+
+        <div class="flex justify-between items-start gap-2 mb-3">
+
+          <span class="badge">
+            ${escapeHTML(course.type)}
+          </span>
+
+          <span class="text-xs text-yellow-300 font-bold">
+            ${escapeHTML(course.rating)}
+          </span>
+
+        </div>
+
+        <h3 class="text-2xl font-extrabold gold-text">
+          ${escapeHTML(course.name)}
+        </h3>
+
+        <p class="text-gray-300 font-semibold mt-1">
+          ${escapeHTML(course.city)}, ${escapeHTML(course.state)}
+          ${escapeHTML(course.zip)}
+        </p>
+
+        <div class="mt-2">
+          ${distanceHTML}
+        </div>
+
+      </div>
+
+
+      <div class="pt-3 border-t border-[#1E4D32] flex justify-between items-center gap-3">
+
+        <span class="text-sm font-bold text-gray-400">
+          ${course.holes} Holes
+        </span>
+
+        <a
+          href="${escapeAttribute(course.url)}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="gold-button px-4 py-2 rounded-lg text-sm inline-flex items-center gap-1">
+          Official Site ↗
+        </a>
+
+      </div>
+
+    `;
+
+    container.appendChild(card);
+
+  });
+
+}
+
+
+/* =========================================================
+   PROFILE CREATION
+   ========================================================= */
+
+async function createGolferProfile(event){
+
+  event.preventDefault();
+
+  const name =
+    cleanText(
+      document.getElementById("prof-name").value
+    );
+
+  const handicap =
+    cleanText(
+      document.getElementById("prof-handicap").value
+    );
+
+  const course =
+    cleanText(
+      document.getElementById("prof-course").value
+    );
+
+  const location =
+    cleanText(
+      document.getElementById("prof-location").value
+    );
+
+  const bio =
+    cleanText(
+      document.getElementById("prof-bio").value
+    );
+
+  const photoInput =
+    document.getElementById("prof-photo");
+
+
+  if(
+    !name ||
+    !handicap ||
+    !course ||
+    !location
+  ){
+
+    showToast(
+      "Please complete the required profile fields."
+    );
+
+    return;
+
+  }
+
+
+  let photo =
+    "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=300&q=80";
+
+
+  if(
+    photoInput.files &&
+    photoInput.files[0]
+  ){
+
+    const file =
+      photoInput.files[0];
+
+    if(file.size > 2 * 1024 * 1024){
+
+      showToast(
+        "Please choose a photo smaller than 2 MB."
+      );
+
+      return;
+
+    }
+
+    try{
+
+      photo =
+        await compressImage(file);
+
+    }catch(error){
+
+      showToast(
+        "The photo could not be processed."
+      );
+
+      return;
+
+    }
+
+  }
+
+
+  const profile = {
+
+    id:
+      "profile-" +
+      Date.now(),
+
+    name,
+    handicap,
+    course,
+    location,
+    bio,
+
+    photo,
+
+    createdAt:
+      Date.now()
+
+  };
+
+
+  golferProfiles.unshift(profile);
+
+  activeUserProfile = profile;
+
+
+  writeStorage(
+    STORAGE.profiles,
+    golferProfiles
+  );
+
+  writeStorage(
+    STORAGE.activeProfile,
+    activeUserProfile
+  );
+
+
+  document
+    .getElementById("profile-form")
+    .reset();
+
+
+  autoFillUserForms();
+
+  renderProfiles();
+
+  updateCounters();
+
+  showToast(
+    `Welcome ${name}! Your golfer profile is saved on this browser.`
+  );
+
+}
+
+
+function compressImage(file){
+
+  return new Promise(
+    function(resolve,reject){
+
+      const reader =
+        new FileReader();
+
+      reader.onload =
+        function(event){
+
+          const img =
+            new Image();
+
+          img.onload =
+            function(){
+
+              const maxSize = 600;
+
+              let width =
+                img.width;
+
+              let height =
+                img.height;
+
+
+              if(width > maxSize){
+
+                height =
+                  height *
+                  maxSize /
+                  width;
+
+                width =
+                  maxSize;
+
+              }
+
+
+              if(height > maxSize){
+
+                width =
+                  width *
+                  maxSize /
+                  height;
+
+                height =
+                  maxSize;
+
+              }
+
+
+              const canvas =
+                document.createElement(
+                  "canvas"
+                );
+
+              canvas.width =
+                Math.round(width);
+
+              canvas.height =
+                Math.round(height);
+
+
+              const context =
+                canvas.getContext(
+                  "2d"
+                );
+
+              context.drawImage(
+                img,
+                0,
+                0,
+                canvas.width,
+                canvas.height
+              );
+
+
+              resolve(
+                canvas.toDataURL(
+                  "image/jpeg",
+                  .78
+                )
+              );
+
+            };
+
+
+          img.onerror =
+            reject;
+
+          img.src =
+            event.target.result;
+
+        };
+
+
+      reader.onerror =
+        reject;
+
+      reader.readAsDataURL(file);
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   PROFILE RENDER
+   ========================================================= */
+
+function renderProfiles(){
+
+  const container =
+    document.getElementById(
+      "profiles-list"
+    );
+
+  const search =
+    (
+      document.getElementById(
+        "profile-search"
+      )?.value || ""
+    )
+    .trim()
+    .toLowerCase();
+
+
+  const filtered =
+    golferProfiles.filter(
+      profile => {
+
+        if(!search){
+          return true;
         }
-      } catch (err) {
-        console.log("Geolocation initialized with default coordinates.");
-      }
-      
-      document.getElementById("visitor-city").innerText = currentVisitorInfo.city;
-      document.getElementById("visitor-state").innerText = currentVisitorInfo.state;
-      mockLogins[2].location = `${currentVisitorInfo.city}, ${currentVisitorInfo.state} (Current GPS)`;
-      mockLogins[2].ip = currentVisitorInfo.ip;
-    }
 
-    function startClock() {
-      function updateTime() {
-        const now = new Date();
-        document.getElementById("visitor-time").innerText = now.toLocaleTimeString() + " EST";
-      }
-      updateTime();
-      setInterval(updateTime, 1000);
-    }
+        return (
 
-    // GPS Location Finder
-    function useGPSLocation() {
-      if (navigator.geolocation) {
-        document.getElementById("search-status").innerText = "📍 Acquiring real-time GPS coordinates...";
-        navigator.geolocation.getCurrentPosition(
-          (pos) => {
-            const userLat = pos.coords.latitude;
-            const userLon = pos.coords.longitude;
-            
-            // Calculate distance to courses
-            let sorted = [...courseDatabase].map(course => {
-              let dist = Math.sqrt(Math.pow(course.lat - userLat, 2) + Math.pow(course.lon - userLon, 2));
-              return { ...course, distance: dist };
-            }).sort((a, b) => a.distance - b.distance);
+          profile.name
+            .toLowerCase()
+            .includes(search)
 
-            renderCourses(sorted);
-            document.getElementById("search-status").innerText = `✅ Found ${sorted.length} golf courses sorted by closest GPS distance to you!`;
-          },
-          () => {
-            alert("Unable to retrieve GPS location. Searching default Williamsburg courses.");
-            searchCourses();
-          }
+          ||
+
+          profile.location
+            .toLowerCase()
+            .includes(search)
+
+          ||
+
+          profile.course
+            .toLowerCase()
+            .includes(search)
+
         );
-      } else {
-        alert("GPS location is not supported by your browser.");
+
       }
+    );
+
+
+  container.innerHTML="";
+
+
+  if(!filtered.length){
+
+    container.innerHTML = `
+      <div class="col-span-full empty-state">
+        No golfers matched your search.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  filtered.forEach(profile => {
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "golf-card-bg border-2 border-[#1E4D32] p-5 rounded-xl shadow-md hover:border-[#D4AF37] transition flex gap-4 items-start";
+
+
+    const image =
+      document.createElement("img");
+
+    image.src =
+      profile.photo;
+
+    image.alt =
+      `${profile.name} golf profile photo`;
+
+    image.className =
+      "w-20 h-20 rounded-full object-cover border-2 border-[#D4AF37] flex-shrink-0";
+
+
+    const content =
+      document.createElement("div");
+
+    content.className =
+      "min-w-0 flex-1";
+
+
+    const title =
+      document.createElement("div");
+
+    title.className =
+      "flex flex-wrap items-center gap-2";
+
+
+    const name =
+      document.createElement("h4");
+
+    name.className =
+      "text-xl font-bold gold-text";
+
+    name.textContent =
+      profile.name;
+
+
+    const handicap =
+      document.createElement("span");
+
+    handicap.className =
+      "badge";
+
+    handicap.textContent =
+      profile.handicap;
+
+
+    title.appendChild(name);
+    title.appendChild(handicap);
+
+
+    const details =
+      document.createElement("p");
+
+    details.className =
+      "text-xs font-bold text-gray-400 mt-1";
+
+    details.textContent =
+      `${profile.course} • ${profile.location}`;
+
+
+    const bio =
+      document.createElement("p");
+
+    bio.className =
+      "text-sm text-gray-300 mt-2";
+
+    bio.textContent =
+      profile.bio || "GolfMixer member.";
+
+
+    content.appendChild(title);
+    content.appendChild(details);
+    content.appendChild(bio);
+
+
+    if(
+      activeUserProfile &&
+      activeUserProfile.id === profile.id
+    ){
+
+      const you =
+        document.createElement("span");
+
+      you.className =
+        "inline-block text-xs text-green-300 font-bold mt-2";
+
+      you.textContent =
+        "Your active profile";
+
+      content.appendChild(you);
+
     }
 
-    // Directory Search Logic
-    function searchCourses() {
-      const zip = document.getElementById("zip-input").value.trim();
-      const state = document.getElementById("state-input").value;
 
-      let filtered = courseDatabase.filter(course => {
-        let matchZip = zip === "" || course.zip === zip;
-        let matchState = state === "" || course.state === state;
-        return matchZip && matchState;
-      });
+    card.appendChild(image);
+    card.appendChild(content);
 
-      renderCourses(filtered);
-      document.getElementById("search-status").innerText = `Showing ${filtered.length} golf course(s) matching your search.`;
+    container.appendChild(card);
+
+  });
+
+}
+
+
+/* =========================================================
+   SOCIAL POSTS
+   ========================================================= */
+
+function createSocialPost(event){
+
+  event.preventDefault();
+
+
+  const author =
+    cleanText(
+      document.getElementById(
+        "social-author"
+      ).value
+    );
+
+  const club =
+    cleanText(
+      document.getElementById(
+        "social-club"
+      ).value
+    );
+
+  const activity =
+    document.getElementById(
+      "social-activity"
+    ).value;
+
+  const date =
+    document.getElementById(
+      "social-date"
+    ).value;
+
+  const desc =
+    cleanText(
+      document.getElementById(
+        "social-desc"
+      ).value
+    );
+
+
+  if(
+    !author ||
+    !club ||
+    !date ||
+    !desc
+  ){
+
+    showToast(
+      "Please complete all social event fields."
+    );
+
+    return;
+
+  }
+
+
+  socialPosts.unshift({
+
+    id:Date.now(),
+
+    author,
+
+    club,
+
+    activity,
+
+    date,
+
+    desc,
+
+    attendees:[author],
+
+    createdAt:Date.now()
+
+  });
+
+
+  writeStorage(
+    STORAGE.socials,
+    socialPosts
+  );
+
+
+  document
+    .getElementById("social-form")
+    .reset();
+
+
+  renderSocialFeed();
+
+  showToast(
+    "Your 19th Hole social event was posted."
+  );
+
+}
+
+
+function renderSocialFeed(){
+
+  const container =
+    document.getElementById(
+      "social-feed"
+    );
+
+  container.innerHTML="";
+
+
+  if(!socialPosts.length){
+
+    container.innerHTML = `
+      <div class="empty-state">
+        No social events have been posted yet.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  const sorted =
+    [...socialPosts]
+      .sort(
+        (a,b) =>
+          getDateValue(a.date) -
+          getDateValue(b.date)
+      );
+
+
+  sorted.forEach(post => {
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "golf-card-bg border-2 border-[#1E4D32] p-6 rounded-xl shadow-md hover:border-[#D4AF37] transition";
+
+
+    const header =
+      document.createElement("div");
+
+    header.className =
+      "flex flex-col sm:flex-row justify-between gap-2 border-b border-[#1E4D32] pb-3";
+
+
+    const heading =
+      document.createElement("div");
+
+
+    const badge =
+      document.createElement("span");
+
+    badge.className =
+      "badge";
+
+    badge.textContent =
+      post.activity;
+
+
+    const club =
+      document.createElement("h4");
+
+    club.className =
+      "text-xl font-bold gold-text mt-1";
+
+    club.textContent =
+      post.club;
+
+
+    heading.appendChild(badge);
+    heading.appendChild(club);
+
+
+    const date =
+      document.createElement("span");
+
+    date.className =
+      "text-xs font-semibold text-gray-400";
+
+    date.textContent =
+      formatDate(post.date);
+
+
+    header.appendChild(heading);
+    header.appendChild(date);
+
+
+    const description =
+      document.createElement("p");
+
+    description.className =
+      "text-gray-200 text-base mt-4";
+
+    description.textContent =
+      post.desc;
+
+
+    const attendees =
+      document.createElement("p");
+
+    attendees.className =
+      "text-xs text-gray-400 mt-3";
+
+    attendees.textContent =
+      `Attending Members (${post.attendees.length}): ${post.attendees.join(", ")}`;
+
+
+    const bottom =
+      document.createElement("div");
+
+    bottom.className =
+      "flex flex-col sm:flex-row justify-between sm:items-center gap-3 pt-4";
+
+
+    const host =
+      document.createElement("span");
+
+    host.className =
+      "text-gray-400 text-sm";
+
+    host.textContent =
+      `Hosted by ${post.author}`;
+
+
+    const button =
+      document.createElement("button");
+
+    button.className =
+      "gold-button px-4 py-2 rounded-lg";
+
+    button.textContent =
+      "RSVP / Join";
+
+    button.onclick =
+      function(){
+
+        joinSocial(post.id);
+
+      };
+
+
+    bottom.appendChild(host);
+    bottom.appendChild(button);
+
+
+    card.appendChild(header);
+    card.appendChild(description);
+    card.appendChild(attendees);
+    card.appendChild(bottom);
+
+
+    container.appendChild(card);
+
+  });
+
+}
+
+
+function joinSocial(postId){
+
+  const post =
+    socialPosts.find(
+      item => item.id === postId
+    );
+
+  if(!post){
+    return;
+  }
+
+
+  const userName =
+    getCurrentUserName();
+
+
+  if(!userName){
+    return;
+  }
+
+
+  if(
+    post.attendees.includes(userName)
+  ){
+
+    showToast(
+      "You are already RSVP'd for this social."
+    );
+
+    return;
+
+  }
+
+
+  post.attendees.push(userName);
+
+
+  writeStorage(
+    STORAGE.socials,
+    socialPosts
+  );
+
+
+  renderSocialFeed();
+
+  showToast(
+    `RSVP confirmed for ${post.club}.`
+  );
+
+}
+
+
+function clearExpiredSocials(){
+
+  const now =
+    Date.now();
+
+
+  socialPosts =
+    socialPosts.filter(
+      post =>
+        !post.date ||
+        getDateValue(post.date) >= now
+    );
+
+
+  writeStorage(
+    STORAGE.socials,
+    socialPosts
+  );
+
+
+  renderSocialFeed();
+
+  showToast(
+    "Expired social events removed."
+  );
+
+}
+
+
+/* =========================================================
+   MIXERS
+   ========================================================= */
+
+function createMixer(event){
+
+  event.preventDefault();
+
+
+  const host =
+    cleanText(
+      document.getElementById(
+        "host-name"
+      ).value
+    );
+
+  const course =
+    cleanText(
+      document.getElementById(
+        "mixer-course"
+      ).value
+    );
+
+  const type =
+    document.getElementById(
+      "mixer-type"
+    ).value;
+
+  const date =
+    document.getElementById(
+      "mixer-date"
+    ).value;
+
+  const totalSpots =
+    Number(
+      document.getElementById(
+        "mixer-spots"
+      ).value
+    );
+
+
+  if(
+    !host ||
+    !course ||
+    !date
+  ){
+
+    showToast(
+      "Please complete all mixer fields."
+    );
+
+    return;
+
+  }
+
+
+  golfMixers.unshift({
+
+    id:Date.now(),
+
+    host,
+
+    course,
+
+    type,
+
+    date,
+
+    totalSpots,
+
+    attendees:[host],
+
+    createdAt:Date.now()
+
+  });
+
+
+  writeStorage(
+    STORAGE.mixers,
+    golfMixers
+  );
+
+
+  document
+    .getElementById("mixer-form")
+    .reset();
+
+
+  renderMixers();
+
+  updateCounters();
+
+  showToast(
+    "Golf mixer published successfully."
+  );
+
+}
+
+
+function renderMixers(){
+
+  const container =
+    document.getElementById(
+      "mixers-list"
+    );
+
+  const filter =
+    document.getElementById(
+      "mixer-filter"
+    ).value;
+
+
+  let list =
+    [...golfMixers];
+
+
+  list.sort(
+    (a,b) =>
+      getDateValue(a.date) -
+      getDateValue(b.date)
+  );
+
+
+  if(filter === "open"){
+
+    list =
+      list.filter(
+        mixer =>
+          mixer.attendees.length <
+          mixer.totalSpots
+      );
+
+  }
+
+
+  if(filter === "full"){
+
+    list =
+      list.filter(
+        mixer =>
+          mixer.attendees.length >=
+          mixer.totalSpots
+      );
+
+  }
+
+
+  container.innerHTML="";
+
+
+  if(!list.length){
+
+    container.innerHTML = `
+      <div class="empty-state">
+        No mixers match this filter.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  list.forEach(mixer => {
+
+    const spotsLeft =
+      Math.max(
+        0,
+        mixer.totalSpots -
+        mixer.attendees.length
+      );
+
+
+    const isFull =
+      spotsLeft === 0;
+
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "golf-card-bg border-2 border-[#1E4D32] p-5 rounded-xl shadow-md hover:border-[#D4AF37] transition";
+
+
+    card.innerHTML = `
+
+      <div class="flex flex-col sm:flex-row justify-between gap-4">
+
+        <div>
+
+          <div class="flex flex-wrap items-center gap-2">
+
+            <span class="font-bold text-xl gold-text">
+              ${escapeHTML(mixer.type)}
+            </span>
+
+            <span class="status-badge ${isFull ? "status-full" : "status-open"}">
+              ${isFull ? "FULL" : `${spotsLeft} spot${spotsLeft === 1 ? "" : "s"} left`}
+            </span>
+
+          </div>
+
+          <p class="text-gray-200 font-semibold mt-2">
+            ${escapeHTML(mixer.course)}
+          </p>
+
+          <p class="text-sm text-gray-400 mt-1">
+            Hosted by <strong class="text-gray-200">
+              ${escapeHTML(mixer.host)}
+            </strong>
+          </p>
+
+          <p class="text-sm text-gray-400 mt-1">
+            ${formatDate(mixer.date)}
+          </p>
+
+          <p class="text-xs text-gray-400 mt-2">
+            Players:
+            ${mixer.attendees
+              .map(name => escapeHTML(name))
+              .join(", ")}
+          </p>
+
+        </div>
+
+        <button
+          onclick="joinMixer(${Number(mixer.id)})"
+          ${isFull ? "disabled" : ""}
+          class="gold-button px-5 py-2.5 rounded-lg text-sm disabled:opacity-40 disabled:cursor-not-allowed">
+          ${isFull ? "Group Full" : "Join Group"}
+        </button>
+
+      </div>
+
+    `;
+
+
+    container.appendChild(card);
+
+  });
+
+}
+
+
+function joinMixer(mixerId){
+
+  const mixer =
+    golfMixers.find(
+      item =>
+        item.id === mixerId
+    );
+
+
+  if(!mixer){
+    return;
+  }
+
+
+  if(
+    mixer.attendees.length >=
+    mixer.totalSpots
+  ){
+
+    showToast(
+      "This golf mixer is full."
+    );
+
+    return;
+
+  }
+
+
+  const userName =
+    getCurrentUserName();
+
+
+  if(!userName){
+    return;
+  }
+
+
+  if(
+    mixer.attendees.includes(
+      userName
+    )
+  ){
+
+    showToast(
+      "You are already in this group."
+    );
+
+    return;
+
+  }
+
+
+  mixer.attendees.push(
+    userName
+  );
+
+
+  writeStorage(
+    STORAGE.mixers,
+    golfMixers
+  );
+
+
+  renderMixers();
+
+  showToast(
+    `You joined the ${mixer.type}.`
+  );
+
+}
+
+
+/* =========================================================
+   USER NAME
+   ========================================================= */
+
+function getCurrentUserName(){
+
+  if(
+    activeUserProfile &&
+    activeUserProfile.name
+  ){
+
+    return activeUserProfile.name;
+
+  }
+
+
+  const name =
+    prompt(
+      "Enter your display name to join:"
+    );
+
+
+  if(!name){
+    return null;
+  }
+
+
+  const cleaned =
+    cleanText(name);
+
+
+  if(!cleaned){
+    return null;
+  }
+
+
+  return cleaned;
+
+}
+
+
+function autoFillUserForms(){
+
+  if(
+    !activeUserProfile
+  ){
+    return;
+  }
+
+
+  const social =
+    document.getElementById(
+      "social-author"
+    );
+
+  const host =
+    document.getElementById(
+      "host-name"
+    );
+
+
+  if(social){
+    social.value =
+      activeUserProfile.name;
+  }
+
+
+  if(host){
+    host.value =
+      activeUserProfile.name;
+  }
+
+}
+
+
+/* =========================================================
+   COUNTERS
+   ========================================================= */
+
+function updateCounters(){
+
+  document
+    .getElementById("course-count")
+    .textContent =
+      courseDatabase.length;
+
+
+  document
+    .getElementById("mixer-count")
+    .textContent =
+      golfMixers.length;
+
+
+  document
+    .getElementById("profile-count")
+    .textContent =
+      golferProfiles.length;
+
+}
+
+
+/* =========================================================
+   DATE HELPERS
+   ========================================================= */
+
+function setupDateMinimums(){
+
+  const now =
+    new Date();
+
+
+  const local =
+    new Date(
+      now.getTime() -
+      now.getTimezoneOffset()*60000
+    )
+    .toISOString()
+    .slice(0,16);
+
+
+  const mixerDate =
+    document.getElementById(
+      "mixer-date"
+    );
+
+  const socialDate =
+    document.getElementById(
+      "social-date"
+    );
+
+
+  if(mixerDate){
+    mixerDate.min =
+      local;
+  }
+
+
+  if(socialDate){
+    socialDate.min =
+      local;
+  }
+
+}
+
+
+function getDateValue(value){
+
+  if(!value){
+    return Number.MAX_SAFE_INTEGER;
+  }
+
+
+  const time =
+    new Date(value)
+      .getTime();
+
+
+  return Number.isNaN(time)
+    ? Number.MAX_SAFE_INTEGER
+    : time;
+
+}
+
+
+function formatDate(value){
+
+  if(!value){
+    return "Date to be announced";
+  }
+
+
+  const date =
+    new Date(value);
+
+
+  if(Number.isNaN(date.getTime())){
+    return "Date to be announced";
+  }
+
+
+  return date.toLocaleString(
+    undefined,
+    {
+      dateStyle:"medium",
+      timeStyle:"short"
+    }
+  );
+
+}
+
+
+/* =========================================================
+   SECURITY / TEXT SANITIZATION
+   ========================================================= */
+
+function cleanText(value){
+
+  return String(value || "")
+    .replace(/\s+/g," ")
+    .trim();
+
+}
+
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttribute(value){
+
+  return String(value ?? "")
+    .replace(/"/g,"%22")
+    .replace(/</g,"%3C")
+    .replace(/>/g,"%3E");
+
+}
+
+
+/* =========================================================
+   EXPORT USER DATA
+   ========================================================= */
+
+function exportMyData(){
+
+  const data = {
+
+    exportedAt:
+      new Date().toISOString(),
+
+    activeProfile:
+      activeUserProfile,
+
+    profiles:
+      golferProfiles,
+
+    socialPosts:
+      socialPosts,
+
+    golfMixers:
+      golfMixers
+
+  };
+
+
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          data,
+          null,
+          2
+        )
+      ],
+      {
+        type:"application/json"
+      }
+    );
+
+
+  const url =
+    URL.createObjectURL(blob);
+
+
+  const link =
+    document.createElement("a");
+
+  link.href =
+    url;
+
+  link.download =
+    "golfmixer-my-data.json";
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+
+  URL.revokeObjectURL(url);
+
+
+  showToast(
+    "Your GolfMixer data has been exported."
+  );
+
+}
+
+
+/* =========================================================
+   DELETE LOCAL DATA
+   ========================================================= */
+
+function clearMyData(){
+
+  const confirmed =
+    confirm(
+      "Delete the GolfMixer profiles, mixer posts and social posts stored in this browser? This cannot be undone."
+    );
+
+
+  if(!confirmed){
+    return;
+  }
+
+
+  localStorage.removeItem(
+    STORAGE.profiles
+  );
+
+  localStorage.removeItem(
+    STORAGE.socials
+  );
+
+  localStorage.removeItem(
+    STORAGE.mixers
+  );
+
+  localStorage.removeItem(
+    STORAGE.activeProfile
+  );
+
+
+  golferProfiles =
+    [];
+
+  socialPosts =
+    [];
+
+  golfMixers =
+    [];
+
+  activeUserProfile =
+    null;
+
+
+  renderProfiles();
+
+  renderSocialFeed();
+
+  renderMixers();
+
+  updateCounters();
+
+  showToast(
+    "Your locally stored GolfMixer data has been deleted."
+  );
+
+}
+
+
+/* =========================================================
+   ESCAPE LINKS / SAFETY
+   ========================================================= */
+
+document.addEventListener(
+  "click",
+  function(event){
+
+    const link =
+      event.target.closest(
+        "a[target='_blank']"
+      );
+
+
+    if(!link){
+      return;
     }
 
-    function renderCourses(courses) {
-      const container = document.getElementById("course-results");
-      container.innerHTML = "";
 
-      if (courses.length === 0) {
-        container.innerHTML = `
-          <div class="col-span-full golf-card-bg border-2 border-[#D4AF37] p-8 rounded-xl text-center">
-            <p class="text-2xl font-bold text-white">No courses matching your criteria were found.</p>
-            <p class="text-gray-300 mt-2">Try clearing your ZIP code or selecting "All States" to view all courses.</p>
-          </div>
-        `;
-        return;
-      }
+    link.setAttribute(
+      "rel",
+      "noopener noreferrer"
+    );
 
-      courses.forEach(c => {
-        const card = document.createElement("div");
-        card.className = "golf-card-bg border-2 border-[#1E4D32] p-6 rounded-xl shadow-md hover:border-[#D4AF37] transition flex flex-col justify-between space-y-4";
-        card.innerHTML = `
-          <div>
-            <div class="flex justify-between items-start mb-2">
-              <span class="bg-[#1E4D32] gold-text font-extrabold text-xs px-2.5 py-1 rounded uppercase tracking-wider">${c.type}</span>
-              <span class="bg-yellow-900/40 text-yellow-300 font-extrabold text-xs px-2.5 py-1 rounded-full border border-yellow-600/50">${c.rating}</span>
-            </div>
-            <h3 class="text-2xl font-extrabold gold-text">${c.name}</h3>
-            <p class="text-gray-300 font-semibold mt-1">${c.city}, ${c.state} ${c.zip}</p>
-          </div>
-          <div class="pt-3 border-t border-[#1E4D32] flex justify-between items-center">
-            <span class="text-sm font-bold text-gray-400">${c.holes} Holes</span>
-            <a href="${c.url}" target="_blank" rel="noopener noreferrer" class="gold-button px-4 py-2 rounded-lg text-sm transition inline-flex items-center gap-1">
-              Visit Official Site ↗
-            </a>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
+  }
+);
 
-    // Profile Creation Logic
-    function createGolferProfile(event) {
-      event.preventDefault();
-      const name = document.getElementById("prof-name").value;
-      const handicap = document.getElementById("prof-handicap").value;
-      const course = document.getElementById("prof-course").value;
-      const location = document.getElementById("prof-location").value;
-      const bio = document.getElementById("prof-bio").value;
-      const fileInput = document.getElementById("prof-photo");
 
-      let photoUrl = "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=300&q=80";
+/* =========================================================
+   KEEP DATA UPDATED BETWEEN TABS
+   ========================================================= */
 
-      if (fileInput.files && fileInput.files[0]) {
-        photoUrl = URL.createObjectURL(fileInput.files[0]);
-      }
+window.addEventListener(
+  "storage",
+  function(event){
 
-      const newProfile = { name, handicap, course, location, bio, photo: photoUrl };
-      activeUserProfile = newProfile; // Set active session profile
-      golferProfiles.unshift(newProfile);
+    if(
+      event.key ===
+      STORAGE.profiles
+    ){
 
-      // Auto-fill author fields in social & mixer forms
-      document.getElementById("social-author").value = name;
-      document.getElementById("host-name").value = name;
+      golferProfiles =
+        readStorage(
+          STORAGE.profiles,
+          []
+        );
 
       renderProfiles();
-      document.getElementById("profile-form").reset();
-      document.getElementById("profile-count").innerText = `${golferProfiles.length + 122} Profiles`;
-      alert(`Welcome ${name}! Your profile is published and active. You can now join any Mixer or 19th Hole Social!`);
+
+      updateCounters();
+
     }
 
-    function renderProfiles() {
-      const container = document.getElementById("profiles-list");
-      container.innerHTML = "";
 
-      golferProfiles.forEach(p => {
-        const card = document.createElement("div");
-        card.className = "golf-card-bg border-2 border-[#1E4D32] p-5 rounded-xl shadow-md hover:border-[#D4AF37] transition flex space-x-4 items-center";
-        card.innerHTML = `
-          <img src="${p.photo}" alt="${p.name}" class="w-20 h-20 rounded-full object-cover border-2 border-[#D4AF37] flex-shrink-0">
-          <div class="space-y-1">
-            <div class="flex items-center space-x-2">
-              <h4 class="text-xl font-bold gold-text">${p.name}</h4>
-              <span class="bg-[#1E4D32] text-yellow-300 text-xs font-bold px-2 py-0.5 rounded">${p.handicap}</span>
-            </div>
-            <p class="text-xs font-bold text-gray-400">${p.course} &bull; ${p.location}</p>
-            <p class="text-sm text-gray-300 line-clamp-2">${p.bio}</p>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
+    if(
+      event.key ===
+      STORAGE.socials
+    ){
 
-    // Group & Mixer Joining Handler
-    function joinMixer(mixerId) {
-      const mixer = golfMixers.find(m => m.id === mixerId);
-      if (!mixer) return;
+      socialPosts =
+        readStorage(
+          STORAGE.socials,
+          []
+        );
 
-      const userName = activeUserProfile ? activeUserProfile.name : prompt("Please enter your name to join this Golf Mixer group:");
-      if (!userName) return;
-
-      if (mixer.attendees.includes(userName)) {
-        alert(`You (${userName}) are already registered for this Golf Mixer!`);
-        return;
-      }
-
-      if (mixer.attendees.length >= mixer.totalSpots) {
-        alert("This Golf Mixer group is currently full!");
-        return;
-      }
-
-      mixer.attendees.push(userName);
-      renderMixers();
-      alert(`Success! ${userName} has been added to the Golf Mixer at ${mixer.course}.`);
-    }
-
-    function joinSocial(postId) {
-      const post = socialPosts.find(p => p.id === postId);
-      if (!post) return;
-
-      const userName = activeUserProfile ? activeUserProfile.name : prompt("Please enter your name to RSVP for this clubhouse social:");
-      if (!userName) return;
-
-      if (post.attendees.includes(userName)) {
-        alert(`You (${userName}) have already RSVP'd for this event!`);
-        return;
-      }
-
-      post.attendees.push(userName);
       renderSocialFeed();
-      alert(`RSVP Confirmed! ${userName} is attending the clubhouse social at ${post.club}.`);
+
     }
 
-    // 19th Hole Clubhouse Social Logic
-    function createSocialPost(event) {
-      event.preventDefault();
-      const author = document.getElementById("social-author").value;
-      const club = document.getElementById("social-club").value;
-      const activity = document.getElementById("social-activity").value;
-      const desc = document.getElementById("social-desc").value;
 
-      socialPosts.unshift({ 
-        id: Date.now(), 
-        author, 
-        club, 
-        activity, 
-        time: "Just Now", 
-        desc, 
-        attendees: [author] 
-      });
-      renderSocialFeed();
-      document.getElementById("social-form").reset();
-      alert("Social event posted to The 19th Hole Clubhouse Lounge!");
-    }
+    if(
+      event.key ===
+      STORAGE.mixers
+    ){
 
-    function renderSocialFeed() {
-      const container = document.getElementById("social-feed");
-      container.innerHTML = "";
+      golfMixers =
+        readStorage(
+          STORAGE.mixers,
+          []
+        );
 
-      socialPosts.forEach(post => {
-        const card = document.createElement("div");
-        card.className = "golf-card-bg border-2 border-[#1E4D32] p-6 rounded-xl shadow-md hover:border-[#D4AF37] transition space-y-3";
-        card.innerHTML = `
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-[#1E4D32] pb-3">
-            <div>
-              <span class="bg-[#1E4D32] gold-text font-extrabold text-xs px-2.5 py-1 rounded uppercase tracking-wider">${post.activity}</span>
-              <h4 class="text-xl font-bold gold-text mt-1">${post.club}</h4>
-            </div>
-            <span class="text-xs font-semibold text-gray-400">${post.time}</span>
-          </div>
-          <p class="text-gray-200 text-base">${post.desc}</p>
-          <div class="text-xs text-gray-400 font-medium">
-            <strong>Attending Members (${post.attendees.length}):</strong> ${post.attendees.join(", ")}
-          </div>
-          <div class="flex justify-between items-center pt-2 text-sm">
-            <span class="text-gray-400">Hosted by <strong class="text-white">${post.author}</strong></span>
-            <button onclick="joinSocial(${post.id})" class="gold-button px-4 py-2 rounded-lg transition">
-              RSVP / Join Social
-            </button>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    // Mixer Event Logic
-    function createMixer(event) {
-      event.preventDefault();
-      const host = document.getElementById("host-name").value;
-      const course = document.getElementById("mixer-course").value;
-      const type = document.getElementById("mixer-type").value;
-
-      golfMixers.unshift({ 
-        id: Date.now(), 
-        host, 
-        course, 
-        type, 
-        date: "Just Now", 
-        totalSpots: 4, 
-        attendees: [host] 
-      });
       renderMixers();
-      document.getElementById("mixer-form").reset();
-      alert("Golf mixer published successfully!");
+
+      updateCounters();
+
     }
 
-    function renderMixers() {
-      const container = document.getElementById("mixers-list");
-      container.innerHTML = "";
+  }
+);
 
-      golfMixers.forEach(m => {
-        const spotsLeft = m.totalSpots - m.attendees.length;
-        const spotsText = spotsLeft > 0 ? `${spotsLeft} spot(s) left` : "FULL";
 
-        const card = document.createElement("div");
-        card.className = "golf-card-bg border-2 border-[#1E4D32] p-5 rounded-xl shadow-md hover:border-[#D4AF37] transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4";
-        card.innerHTML = `
-          <div>
-            <div class="flex items-center space-x-2">
-              <span class="font-bold text-xl gold-text">${m.type}</span>
-              <span class="text-xs bg-[#1E4D32] ${spotsLeft > 0 ? 'text-green-300' : 'text-red-400'} font-bold px-2 py-0.5 rounded">${spotsText}</span>
-            </div>
-            <p class="text-gray-200 font-semibold mt-1">${m.course}</p>
-            <p class="text-sm text-gray-400">Hosted by <strong class="text-gray-200">${m.host}</strong> &bull; ${m.date}</p>
-            <p class="text-xs text-gray-400 mt-1"><strong>Group Players:</strong> ${m.attendees.join(", ")}</p>
-          </div>
-          <button onclick="joinMixer(${m.id})" class="gold-button px-5 py-2.5 rounded-lg text-sm transition">
-            Join Group
-          </button>
-        `;
-        container.appendChild(card);
-      });
+/* =========================================================
+   PAGE VISIBILITY
+   ========================================================= */
+
+document.addEventListener(
+  "visibilitychange",
+  function(){
+
+    if(
+      document.visibilityState ===
+      "visible"
+    ){
+
+      renderProfiles();
+
+      renderSocialFeed();
+
+      renderMixers();
+
+      updateCounters();
+
     }
 
-    // Owner Admin Panel Logic
-    function toggleAdminModal() {
-      document.getElementById("admin-modal").classList.toggle("hidden");
-    }
+  }
+);
 
-    function checkAdminPass() {
-      const pass = document.getElementById("admin-pass").value;
-      const err = document.getElementById("admin-err");
-      
-      if (pass === "admin123" || pass === "golf2026") {
-        err.classList.add("hidden");
-        document.getElementById("admin-login-step").classList.add("hidden");
-        document.getElementById("admin-panel-step").classList.remove("hidden");
-        renderAdminLogs();
-      } else {
-        err.classList.remove("hidden");
-      }
-    }
+</script>
 
-    function renderAdminLogs() {
-      const tbody = document.getElementById("admin-visitor-rows");
-      tbody.innerHTML = "";
-
-      mockLogins.forEach(log => {
-        const row = document.createElement("tr");
-        row.className = "hover:bg-[#122B1D] border-b border-[#1E4D32]";
-        row.innerHTML = `
-          <td class="p-4 font-bold text-gray-400">${log.id}</td>
-          <td class="p-4">${log.time}</td>
-          <td class="p-4 font-bold gold-text">${log.location}</td>
-          <td class="p-4 font-mono text-sm">${log.ip}</td>
-          <td class="p-4 text-green-400 font-bold" id="session-timer-${log.id}">0m 0s</td>
-        `;
-        tbody.appendChild(row);
-      });
-      updateAdminTimers();
-    }
-
-    function updateAdminTimers() {
-      const panel = document.getElementById("admin-panel-step");
-      if (panel.classList.contains("hidden")) return;
-
-      const now = Date.now();
-      mockLogins.forEach(log => {
-        const timerElem = document.getElementById(`session-timer-${log.id}`);
-        if (timerElem) {
-          const diffSec = Math.floor((now - log.sessionStart) / 1000);
-          const minutes = Math.floor(diffSec / 60);
-          const seconds = diffSec % 60;
-          timerElem.innerText = `${minutes}m ${seconds}s`;
-        }
-      });
-    }
-  </script>
 </body>
 </html>
